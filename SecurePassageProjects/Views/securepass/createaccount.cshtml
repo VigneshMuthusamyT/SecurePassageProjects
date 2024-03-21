@@ -1,0 +1,1183 @@
+﻿
+
+<style>
+
+
+
+    * {
+        border: 0;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background: rgb(250, 250, 250) url(http://lorempixel.com/1920/1080/nature/);
+        font-family: Lato, Helvetica, Arial, sans-serif;
+    }
+
+    a {
+        color: inherit;
+        font-family: inherit;
+        font-size: inherit;
+        text-decoration: none;
+    }
+
+
+    /*======================================================
+                                                      Navbar
+                              ======================================================*/
+    #navbar {
+        background: white;
+        color: rgb(13, 26, 38);
+        position: fixed;
+        top: 0;
+        height: 60px;
+        line-height: 60px;
+        width: 100vw;
+        z-index: 10;
+        margin-left: -146px;
+    }
+
+    .nav-wrapper {
+        margin: auto;
+        text-align: center;
+        width: 70%;
+    }
+
+    @@media(max-width: 768px) {
+        .nav-wrapper {
+            width: 90%;
+        }
+    }
+
+    @@media(max-width: 638px) {
+        .nav-wrapper {
+            width: 100%;
+        }
+    }
+
+
+    .logo {
+        float: left;
+        margin-left: 28px;
+        font-size: 1.5em;
+        height: 30px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    @@media(max-width: 768px) {
+        .logo {
+            /*       margin-left: 5px; */
+        }
+    }
+
+    #navbar ul {
+        display: inline-block;
+        float: right;
+        list-style: none;
+        /* margin-right: 14px; */
+        margin-top: -2px;
+        text-align: right;
+        transition: transform 0.5s ease-out;
+        -webkit-transition: transform 0.5s ease-out;
+    }
+
+    @@media(max-width: 640px) {
+        #navbar ul {
+            display: none;
+        }
+    }
+
+    @@media(orientation: landscape) {
+        #navbar ul {
+            display: inline-block;
+        }
+    }
+
+    #navbar li {
+        display: inline-block;
+    }
+
+        /* #navbar li a {
+                                    color: rgb(13, 26, 38);
+                                    display: block;
+                                    font-size: 0.7em;
+                                    height: 50px;
+                                    letter-spacing: 1px;
+                                    margin: 0 20px;
+                                    padding: 0 4px;
+                                    position: relative;
+                                    text-decoration: none;
+                                    text-transform: uppercase;
+                                    transition: all 0.5s ease;
+                                    -webkit-transition: all 0.5s ease;
+                                } */
+
+        #navbar li a {
+            color: rgb(13, 26, 38);
+            display: block;
+            font-size: 18px;
+            height: 50px;
+            letter-spacing: 1px;
+            margin: 0 20px;
+            padding: 4px 4px;
+            position: relative;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.5s ease;
+            -webkit-transition: all 0.5s ease;
+        }
+
+            #navbar li a:hover {
+                /* border-bottom: 1px solid rgb(28, 121, 184); */
+                color: rgb(28, 121, 184);
+                transition: all 1s ease;
+                -webkit-transition: all 1s ease;
+            }
+
+            /* Animated Bottom Line */
+            #navbar li a:before, #navbar li a:after {
+                content: '';
+                position: absolute;
+                width: 0%;
+                height: 1px;
+                bottom: -1px;
+                background: rgb(13, 26, 38);
+            }
+
+            #navbar li a:before {
+                left: 0;
+                transition: 0.5s;
+            }
+
+            #navbar li a:after {
+                background: rgb(13, 26, 38);
+                right: 0;
+                /* transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1); */
+            }
+
+            #navbar li a:hover:before {
+                background: rgb(13, 26, 38);
+                width: 100%;
+                transition: width 0.5s cubic-bezier((0.22, 0.61, 0.36, 1));
+            }
+
+            #navbar li a:hover:after {
+                background: transparent;
+                width: 100%;
+                /* transition: 0s; */
+            }
+
+
+
+
+
+
+
+
+
+
+    /* Toggle Menu Icon */
+    .menuIcon.toggle .icon-bars {
+        top: 5px;
+        transform: translate3d(0, 5px, 0) rotate(135deg);
+        transition-delay: 0.1s;
+        transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+        .menuIcon.toggle .icon-bars::before {
+            top: 0;
+            transition-delay: 0.1s;
+            opacity: 0;
+        }
+
+        .menuIcon.toggle .icon-bars::after {
+            top: 10px;
+            transform: translate3d(0, -10px, 0) rotate(-270deg);
+            transition-delay: 0.1s;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .menuIcon.toggle .icon-bars.overlay {
+            width: 20px;
+            opacity: 0;
+            -webkit-transition: all 0s ease 0s;
+            transition: all 0s ease 0s;
+        }
+
+    }
+
+
+    /*======================================================
+                                               Responsive Mobile Menu
+                              ======================================================*/
+    .overlay-menu {
+        background: lightblue;
+        color: rgb(13, 26, 38);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding-right: 15px;
+        transform: translateX(-100%);
+        width: 100vw;
+        height: 100vh;
+        -webkit-transition: transform 0.2s ease-out;
+        transition: transform 0.2s ease-out;
+    }
+
+        .overlay-menu ul, .overlay-menu li {
+            display: block;
+            position: relative;
+        }
+
+            .overlay-menu li a {
+                display: block;
+                font-size: 1.8em;
+                letter-spacing: 4px;
+                /*   opacity: 0; */
+                padding: 10px 0;
+                text-align: right;
+                text-transform: uppercase;
+                -webkit-transition: color 0.3s ease;
+                transition: color 0.3s ease;
+                /*   -webkit-transition: 0.2s opacity 0.2s ease-out;
+                              transition: 0.2s opacity 0.2s ease-out; */
+            }
+
+                .overlay-menu li a:hover,
+                .overlay-menu li a:active {
+                    color: rgb(28, 121, 184);
+                    -webkit-transition: color 0.3s ease;
+                    transition: color 0.3s ease;
+                }
+
+
+
+    /*                     <!----------csssboxess->
+                     */
+
+
+    * {
+        transition: all 0.3s ease-out;
+    }
+
+
+    .containers {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin-top: 174px;
+    }
+
+    h3 {
+        color: #262626;
+        font-size: 17px;
+        line-height: 24px;
+        font-weight: 700;
+        font-family: "Nunito", sans-serif;
+        margin-bottom: 4px;
+    }
+
+    p {
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 20px;
+        color: #666666;
+        &.small
+
+    {
+        font-size: 14px;
+    }
+
+    }
+
+    .go-corner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        overflow: hidden;
+        top: 0;
+        right: 0;
+        background-color: #00838d;
+        border-radius: 0 4px 0 32px;
+    }
+
+    .go-arrow {
+        margin-top: -4px;
+        margin-right: -4px;
+        color: white;
+        font-family: courier, sans;
+    }
+
+    .card1 {
+        display: block;
+        position: relative;
+        max-width: 262px;
+        background-color: #f2f8f9;
+        border-radius: 4px;
+        padding: 32px 24px;
+        margin: 12px;
+        text-decoration: none;
+        z-index: 0;
+        overflow: hidden;
+        &:before
+
+    {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: -16px;
+        right: -16px;
+        background: #00838d;
+        height: 32px;
+        width: 32px;
+        border-radius: 32px;
+        transform: scale(1);
+        transform-origin: 50% 50%;
+        transition: transform 0.25s ease-out;
+    }
+
+    &:hover:before {
+        transform: scale(21);
+    }
+
+    }
+
+    .card1:hover {
+        p
+
+    {
+        transition: all 0.3s ease-out;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    h3 {
+        transition: all 0.3s ease-out;
+        color: #ffffff;
+    }
+
+    }
+
+
+    .card4 {
+        display: block;
+        top: 0px;
+        position: relative;
+        max-width: 262px;
+        background-color: #ffffff;
+        border-radius: 4px;
+        padding: 32px 24px;
+        margin: 12px;
+        text-decoration: none;
+        overflow: hidden;
+        border: 1px solid #cccccc;
+        .go-corner
+
+    {
+        background-color: #00838d;
+        height: 100%;
+        width: 16px;
+        padding-right: 9px;
+        border-radius: 0;
+        transform: skew(6deg);
+        margin-right: -36px;
+        align-items: start;
+        background-image: linear-gradient(-45deg, #8F479A 1%, #DC2A74 100%);
+    }
+
+    .go-arrow {
+        transform: skew(-6deg);
+        margin-left: -2px;
+        margin-top: 9px;
+        opacity: 0;
+    }
+
+    &:hover {
+        border: 1px solid #CD3D73;
+    }
+
+    h3 {
+        margin-top: 8px;
+    }
+
+    }
+
+    .card4:hover {
+        .go-corner
+
+    {
+        margin-right: -12px;
+    }
+
+    .go-arrow {
+        opacity: 1;
+    }
+
+    }
+
+    .dropdown-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        background-color: #fff;
+        cursor: pointer;
+    }
+
+
+
+
+
+    .right {
+        float: left;
+        background-color: #f2f2f2;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 373px;
+        padding: 20px;
+        position: absolute;
+        top: 280px;
+    }
+
+
+
+    <!-- ------form--Page------ >
+
+
+    .venusa {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(to bottom, #ffb6c1 50%, #fff 50%);
+    }
+
+    .form-container {
+        background: linear-gradient(to bottom right, #5c4d7d, #8b60a6);
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        padding: 40px;
+        width: 300px;
+        color: #fff;
+        text-align: center;
+        position: absolute;
+        right: 342px;
+        top: 124px;
+    }
+
+    h2 {
+        margin-bottom: 30px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 25px;
+        box-sizing: border-box;
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #333;
+        outline: none;
+        transition: background-color 0.3s;
+    }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+    input[type="button"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 25px;
+        background: linear-gradient(to bottom right, #5c4d7d, #8b60a6);
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        input[type="button"]:hover {
+            background: linear-gradient(to bottom right, #8b60a6, #5c4d7d);
+        }
+
+    a {
+        text-decoration: none;
+    }
+
+    .button {
+        padding: 15px 30px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Button Styles */
+    #resetBtn {
+        background-color: #4CAF50; /* Green */
+    }
+
+        /* Hover Effect */
+        #resetBtn:hover {
+            background-color: #45a049; /* Darker Green */
+        }
+
+    @@media screen and (max-width: 640px) {
+        /* Navbar */
+        #navbar {
+            margin-left: 0; /* Adjust the margin */
+        }
+
+        .nav-wrapper {
+            width: 90%; /* Adjust the width */
+        }
+
+        .logo {
+            margin-left: 10px; /* Adjust the margin */
+        }
+
+        #navbar ul {
+            display: none; /* Hide the navbar links by default */
+        }
+            /* Show the navbar links when menuIcon is clicked */
+            #navbar ul.show {
+                display: block;
+                width: 225px;
+                border: 2px solid #c0c8cd69;
+                background-color: white;
+                margin-top: 35px;
+            }
+        /* Menu Icon */
+        .menuIcon {
+            display: block; /* Show the menuIcon by default */
+        }
+            /* Hide the second menuIcon when the first one is clicked */
+            .menuIcon.overlay {
+                display: none;
+            }
+        /* Containers */
+        .containers {
+            margin-top: 50px; /* Adjust the margin */
+        }
+        /* Dashboard and Add Account Cards */
+        .card1,
+        .card4 {
+            max-width: 100%; /* Adjust the max-width */
+            width: 100%; /* Adjust the width */
+            margin: 12px 0; /* Adjust the margin */
+        }
+        /* Form Containers */
+        .form-container {
+            width: 90%; /* Adjust the width */
+            margin: 0 auto; /* Center the form container */
+            padding: 20px; /* Adjust the padding */
+        }
+
+        @@media(max-width: 640px) {
+            .menuIcon {
+                cursor: pointer;
+                display: block;
+                position: fixed;
+                right: 15px;
+                top: 20px;
+                height: 23px;
+                width: 27px;
+                z-index: 12;
+            }
+            /* Icon Bars */
+            .icon-bars {
+                background: rgb(13, 26, 38);
+                position: absolute;
+                left: 1px;
+                top: 45%;
+                height: 2px;
+                width: 20px;
+                -webkit-transition: 0.4s;
+                transition: 0.4s;
+            }
+
+                .icon-bars::before {
+                    background: rgb(13, 26, 38);
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: -8px;
+                    height: 2px;
+                    width: 20px;
+                    -webkit-transition: 0.3s width 0.4s;
+                    transition: 0.3s width 0.4s;
+                }
+
+                .icon-bars::after {
+                    margin-top: 0px;
+                    background: rgb(13, 26, 38);
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    bottom: -8px;
+                    height: 2px;
+                    width: 20px;
+                    -webkit-transition: 0.3s width 0.4s;
+                    transition: 0.3s width 0.4s;
+                }
+                /* Bars Shadows */
+                .icon-bars.overlay {
+                    background: rgb(97, 114, 129);
+                    background: rgb(183, 199, 211);
+                    width: 20px;
+                    animation: middleBar 3s infinite 0.5s;
+                    -webkit-animation: middleBar 3s infinite 0.5s;
+                }
+
+            @@keyframes middleBar {
+                0% {
+                    width: 0px
+                }
+
+                50% {
+                    width: 20px
+                }
+
+                100% {
+                    width: 0px
+                }
+            }
+
+            @@-webkit-keyframes middleBar {
+                0% {
+                    width: 0px
+                }
+
+                50% {
+                    width: 20px
+                }
+
+                100% {
+                    width: 0px
+                }
+            }
+
+            .icon-bars.overlay::before {
+                background: rgb(97, 114, 129);
+                background: rgb(183, 199, 211);
+                width: 10px;
+                animation: topBar 3s infinite 0.2s;
+                -webkit-animation: topBar 3s infinite 0s;
+            }
+
+            @@keyframes topBar {
+                0% {
+                    width: 0px
+                }
+
+                50% {
+                    width: 10px
+                }
+
+                100% {
+                    width: 0px
+                }
+            }
+
+            @@-webkit-keyframes topBar {
+                0% {
+                    width: 0px
+                }
+
+                50% {
+                    width: 10px
+                }
+
+                100% {
+                    width: 0px
+                }
+            }
+
+            .icon-bars.overlay::after {
+                background: rgb(97, 114, 129);
+                background: rgb(183, 199, 211);
+                width: 15px;
+                animation: bottomBar 3s infinite 1s;
+                -webkit-animation: bottomBar 3s infinite 1s;
+            }
+
+            @@keyframes bottomBar {
+                0% {
+                    width: 0px
+                }
+
+                50% {
+                    width: 15px
+                }
+
+                100% {
+                    width: 0px
+                }
+            }
+
+            @@-webkit-keyframes bottomBar {
+                0% {
+                    width: 0px
+                }
+
+                50% {
+                    width: 15px
+                }
+
+                100% {
+                    width: 0px
+                }
+            }
+            /* Toggle Menu Icon */
+            .menuIcon.toggle .icon-bars {
+                top: 5px;
+                transform: translate3d(0, 5px, 0) rotate(135deg);
+                transition-delay: 0.1s;
+                transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            }
+
+                .menuIcon.toggle .icon-bars::before {
+                    top: 0;
+                    transition-delay: 0.1s;
+                    opacity: 0;
+                }
+
+                .menuIcon.toggle .icon-bars::after {
+                    top: 10px;
+                    transform: translate3d(0, -10px, 0) rotate(-270deg);
+                    transition-delay: 0.1s;
+                    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                }
+
+                .menuIcon.toggle .icon-bars.overlay {
+                    width: 20px;
+                    opacity: 0;
+                    -webkit-transition: all 0s ease 0s;
+                    transition: all 0s ease 0s;
+                }
+
+            .right {
+                float: left;
+                background-color: #f2f2f2;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                width: 373px;
+                padding: 20px;
+                top: 104px;
+            }
+
+            .form-container {
+                width: 305px;
+                /* margin: 0 auto; */
+                /* padding: 20px; */
+                margin-right: -244px;
+                margin-top: 134px;
+            }
+        }
+    }
+</style>
+
+@model GoogleModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
+
+
+
+
+</head>
+<body>
+
+    <header>
+
+
+
+        <nav id="navbar" class="">
+            <div class="nav-wrapper">
+                <!-- Navbar Logo -->
+                <div class="logo">
+
+                    <a href="#home">
+                        <img width="60px" height="auto" alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiPgo8cGF0aCBmaWxsPSIjYzdlZGU2IiBkPSJNODcuMjE1LDU2LjcxQzg4LjM1LDU0LjU1NSw4OSw1Mi4xMDUsODksNDkuNWMwLTYuNjIxLTQuMTU5LTEyLjI1Ny0xMC4wMDEtMTQuNDc4IEM3OC45OTksMzUuMDE1LDc5LDM1LjAwOCw3OSwzNWMwLTExLjU5OC05LjQwMi0yMS0yMS0yMWMtOS43ODQsMC0xNy45ODEsNi43MDEtMjAuMzEzLDE1Ljc1N0MzNi4yMTEsMjkuMjcyLDM0LjYzOCwyOSwzMywyOSBjLTcuNjkyLDAtMTQuMDIzLDUuNzkzLTE0Ljg5LDEzLjI1MkMxMi45MDYsNDMuMzUzLDksNDcuOTY5LDksNTMuNUM5LDU5Ljg1MSwxNC4xNDksNjUsMjAuNSw2NWMwLjE3NywwLDAuMzUyLTAuMDEyLDAuNTI2LTAuMDIyIEMyMS4wMjIsNjUuMTUzLDIxLDY1LjMyNCwyMSw2NS41QzIxLDc2LjgyMiwzMC4xNzgsODYsNDEuNSw4NmM2LjQzNywwLDEyLjE3NS0yLjk3MiwxNS45MzQtNy42MTRDNTkuNjEyLDgwLjYxMSw2Mi42NCw4Miw2Niw4MiBjNC42NSwwLDguNjc0LTIuNjUsMTAuNjY2LTYuNTE4Qzc3LjcxOCw3NS44MTcsNzguODM3LDc2LDgwLDc2YzYuMDc1LDAsMTEtNC45MjUsMTEtMTFDOTEsNjEuNjg5LDg5LjUzLDU4LjcyNyw4Ny4yMTUsNTYuNzF6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZkZmNlZiIgZD0iTTYwLjUsMzkuNVY0MGgtM3YtMC41YzAsMC00LjI0MiwwLTUuNSwwYy0yLjQ4NSwwLTQuNS0yLjAxNS00LjUtNC41IGMwLTIuMzMzLDEuNzgyLTQuMjI5LDQuMDU1LTQuNDU1QzUxLjUzMywzMC4zNjQsNTEuNSwzMC4xODcsNTEuNSwzMGMwLTIuNDg1LDIuMDE1LTQuNSw0LjUtNC41YzEuNDM4LDAsMi43MDMsMC42ODYsMy41MjcsMS43MzYgQzU5LjY2NywyNC42LDYxLjgyOSwyMi41LDY0LjUsMjIuNWMyLjc2MSwwLDUsMi4yMzksNSw1YzAsMC40NDYtMC4wNzcsMC44Ny0wLjE4NywxLjI4MmMwLjY0Mi0wLjc3NywxLjYtMS4yODIsMi42ODctMS4yODIgYzEuNzgxLDAsMy4yMzQsMS4zMzUsMy40NTUsMy4wNTVDNzUuNjM2LDMwLjUzMyw3NS44MTMsMzAuNSw3NiwzMC41YzIuNDg1LDAsNC41LDIuMDE1LDQuNSw0LjVzLTIuMDE1LDQuNS00LjUsNC41cy05LjUsMC05LjUsMCBINjAuNXoiPjwvcGF0aD48cGF0aCBmaWxsPSIjNDcyYjI5IiBkPSJNNjQuNSwyMmMzLjAzMywwLDUuNSwyLjQ2Nyw1LjUsNS41YzAsMC4wMTYsMCwwLjAzMSwwLDAuMDQ3QzcwLjYwMiwyNy4xOTIsNzEuMjksMjcsNzIsMjcgYzEuODMxLDAsMy40MTEsMS4yNjEsMy44NTgsMy4wMDVDNzUuOTA1LDMwLjAwMiw3NS45NTIsMzAsNzYsMzBjMi43NTcsMCw1LDIuMjQzLDUsNXMtMi4yNDMsNS01LDVINjAuNSBjLTAuMjc2LDAtMC41LTAuMjI0LTAuNS0wLjVzMC4yMjQtMC41LDAuNS0wLjVINzZjMi4yMDYsMCw0LTEuNzk0LDQtNHMtMS43OTQtNC00LTRjLTAuMTE3LDAtMC4yMywwLjAxNy0wLjM0MywwLjAzMiBsLTAuMTQxLDAuMDE5Yy0wLjAyMSwwLjAwMy0wLjA0MSwwLjAwNC0wLjA2MiwwLjAwNGMtMC4yNDYsMC0wLjQ2Mi0wLjE4NS0wLjQ5NS0wLjQzN0M3NC43NjgsMjkuMTI1LDczLjQ5NiwyOCw3MiwyOCBjLTAuODg1LDAtMS43MjMsMC40MDEtMi4zMDEsMS4xYy0wLjA5OCwwLjExOC0wLjI0MSwwLjE4Mi0wLjM4NiwwLjE4MmMtMC4wNzgsMC0wLjE1Ni0wLjAxOC0wLjIyOC0wLjA1NiBjLTAuMjA5LTAuMTA3LTAuMzE0LTAuMzQ2LTAuMjU0LTAuNTczQzY4Ljk0NiwyOC4yMTgsNjksMjcuODUyLDY5LDI3LjVjMC0yLjQ4MS0yLjAxOS00LjUtNC41LTQuNSBjLTIuMzgxLDAtNC4zNDcsMS44NzItNC40NzQsNC4yNjNjLTAuMDExLDAuMjA4LTAuMTUsMC4zODctMC4zNDksMC40NWMtMC4wNSwwLjAxNi0wLjEwMSwwLjAyNC0wLjE1MiwwLjAyNCBjLTAuMTUsMC0wLjI5Ni0wLjA2OS0wLjM5Mi0wLjE5MkM1OC4zNjIsMjYuNTYzLDU3LjIyMSwyNiw1NiwyNmMtMi4yMDYsMC00LDEuNzk0LTQsNGMwLDAuMTE3LDAuMDE3LDAuMjMsMC4wMzIsMC4zNDMgbDAuMDE5LDAuMTQxYzAuMDE2LDAuMTM0LTAuMDIyLDAuMjY4LTAuMTA2LDAuMzczYy0wLjA4NCwwLjEwNS0wLjIwNywwLjE3Mi0wLjM0LDAuMTg1QzQ5LjU0OSwzMS4yNDcsNDgsMzIuOTQ5LDQ4LDM1IGMwLDIuMjA2LDEuNzk0LDQsNCw0aDUuNWMwLjI3NiwwLDAuNSwwLjIyNCwwLjUsMC41UzU3Ljc3Niw0MCw1Ny41LDQwSDUyYy0yLjc1NywwLTUtMi4yNDMtNS01YzAtMi4zOTcsMS42ODktNC40MTMsNC4wMDMtNC44NzcgQzUxLjAwMSwzMC4wODIsNTEsMzAuMDQxLDUxLDMwYzAtMi43NTcsMi4yNDMtNSw1LTVjMS4xNzYsMCwyLjI5MywwLjQxNiwzLjE4MywxLjE2NEM1OS43ODEsMjMuNzYsNjEuOTQ1LDIyLDY0LjUsMjJMNjQuNSwyMnoiPjwvcGF0aD48cGF0aCBmaWxsPSIjNDcyYjI5IiBkPSJNNjYsMjljMS40MDMsMCwyLjYwOSwwLjk5OSwyLjkxMywyLjM0MUM2OS4yOCwzMS4xMTksNjkuNjk5LDMxLDcwLjEyNSwzMSBjMS4yMDIsMCwyLjE5OCwwLjg5NywyLjM1MywyLjA2OEM3Mi42ODEsMzMuMDIyLDcyLjg3NCwzMyw3My4wNjMsMzNjMS41MjksMCwyLjgxMSwxLjIsMi45MTgsMi43MzIgQzc1Ljk5LDM1Ljg3LDc1Ljg4NiwzNS45OSw3NS43NDksMzZjLTAuMDA2LDAtMC4wMTIsMC0wLjAxOCwwYy0wLjEzLDAtMC4yNC0wLjEwMS0wLjI0OS0wLjIzMiBjLTAuMDg5LTEuMjcxLTEuMTUxLTIuMjY4LTIuNDE5LTIuMjY4Yy0wLjIyOSwwLTAuNDcsMC4wNDItMC43MzgsMC4xMjdjLTAuMDIyLDAuMDA3LTAuMDQ1LDAuMDEtMC4wNjcsMC4wMSBjLTAuMDU1LDAtMC4xMS0wLjAyLTAuMTU2LTAuMDU0QzcyLjAzOCwzMy41MzcsNzIsMzMuNDU1LDcyLDMzLjM3NWMwLTEuMDM0LTAuODQxLTEuODc1LTEuODc1LTEuODc1IGMtMC40NDcsMC0wLjg4NSwwLjE2OC0xLjIzMSwwLjQ3M2MtMC4wNDcsMC4wNDEtMC4xMDYsMC4wNjMtMC4xNjUsMC4wNjNjLTAuMDMyLDAtMC4wNjMtMC4wMDYtMC4wOTMtMC4wMTkgYy0wLjA4OC0wLjAzNS0wLjE0OC0wLjExNy0wLjE1NS0wLjIxMkM2OC4zNzcsMzAuNTEyLDY3LjI4OCwyOS41LDY2LDI5LjVjLTAuMjA4LDAtMC40MjUsMC4wMzQtMC42ODIsMC4xMDcgYy0wLjAyMywwLjAwNy0wLjA0NywwLjAxLTAuMDcsMC4wMWMtMC4xMDksMC0wLjIwNy0wLjA3My0wLjIzOS0wLjE4MmMtMC4wMzgtMC4xMzMsMC4wMzktMC4yNzEsMC4xNzItMC4zMDkgQzY1LjQ4MywyOS4wNCw2NS43NDQsMjksNjYsMjlMNjYsMjl6Ij48L3BhdGg+PHBhdGggZmlsbD0iIzQ3MmIyOSIgZD0iTTUyLjExNywzMC41YzEuMzI2LDAsMi41MDgsMC44OTcsMi44NzQsMi4xODJjMC4wMzgsMC4xMzMtMC4wMzksMC4yNzEtMC4xNzIsMC4zMDkgQzU0Ljc5NSwzMi45OTcsNTQuNzcyLDMzLDU0Ljc1LDMzYy0wLjEwOSwwLTAuMjA5LTAuMDcyLTAuMjQtMC4xODJDNTQuMjA1LDMxLjc0OCw1My4yMjEsMzEsNTIuMTE3LDMxIGMtMC4xMTcsMC0wLjIzLDAuMDE0LTAuMzQyLDAuMDI5Yy0wLjAxMiwwLjAwMi0wLjAyMywwLjAwMy0wLjAzNSwwLjAwM2MtMC4xMjEsMC0wLjIyOS0wLjA5Mi0wLjI0Ni0wLjIxNyBjLTAuMDE5LTAuMTM3LDAuMDc3LTAuMjYzLDAuMjE0LTAuMjgxQzUxLjg0MiwzMC41MTYsNTEuOTc4LDMwLjUsNTIuMTE3LDMwLjVMNTIuMTE3LDMwLjV6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTg2LjUsNjNoLTEwYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDEwYzAuMjc2LDAsMC41LDAuMjI0LDAuNSwwLjUgUzg2Ljc3Nyw2Myw4Ni41LDYzeiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik04OS41LDYzaC0xYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDFjMC4yNzYsMCwwLjUsMC4yMjQsMC41LDAuNSBTODkuNzc3LDYzLDg5LjUsNjN6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTk0LjQ5MSw2NUg4NS41Yy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDguOTkxYzAuMjc2LDAsMC41LDAuMjI0LDAuNSwwLjUgUzk0Ljc2Nyw2NSw5NC40OTEsNjV6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTgzLjUsNjVoLTFjLTAuMjc2LDAtMC41LTAuMjI0LTAuNS0wLjVzMC4yMjQtMC41LDAuNS0wLjVoMWMwLjI3NiwwLDAuNSwwLjIyNCwwLjUsMC41IFM4My43NzcsNjUsODMuNSw2NXoiPjwvcGF0aD48cGF0aCBmaWxsPSIjZmZmIiBkPSJNODAuNSw2NWgtMmMtMC4yNzYsMC0wLjUtMC4yMjQtMC41LTAuNXMwLjIyNC0wLjUsMC41LTAuNWgyYzAuMjc2LDAsMC41LDAuMjI0LDAuNSwwLjUgUzgwLjc3Nyw2NSw4MC41LDY1eiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik04Ni41LDY3aC0yYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDJjMC4yNzYsMCwwLjUsMC4yMjQsMC41LDAuNSBTODYuNzc2LDY3LDg2LjUsNjd6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTg5LjUsNThjLTAuMTc3LDAtMC44MjMsMC0xLDBjLTAuMjc2LDAtMC41LDAuMjI0LTAuNSwwLjVjMCwwLjI3NiwwLjIyNCwwLjUsMC41LDAuNSBjMC4xNzcsMCwwLjgyMywwLDEsMGMwLjI3NiwwLDAuNS0wLjIyNCwwLjUtMC41QzkwLDU4LjIyNCw4OS43NzYsNTgsODkuNSw1OHoiPjwvcGF0aD48cGF0aCBmaWxsPSIjZmZmIiBkPSJNODkuNSw2MGMtMC4xNzcsMC00LjgyMywwLTUsMGMtMC4yNzYsMC0wLjUsMC4yMjQtMC41LDAuNWMwLDAuMjc2LDAuMjI0LDAuNSwwLjUsMC41IGMwLjE3NywwLDQuODIzLDAsNSwwYzAuMjc2LDAsMC41LTAuMjI0LDAuNS0wLjVDOTAsNjAuMjI0LDg5Ljc3Niw2MCw4OS41LDYweiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik05NC41LDYyYy0wLjE3NywwLTIuODIzLDAtMywwYy0wLjI3NiwwLTAuNSwwLjIyNC0wLjUsMC41YzAsMC4yNzYsMC4yMjQsMC41LDAuNSwwLjUgYzAuMTc3LDAsMi44MjMsMCwzLDBjMC4yNzYsMCwwLjUtMC4yMjQsMC41LTAuNUM5NSw2Mi4yMjQsOTQuNzc2LDYyLDk0LjUsNjJ6Ij48L3BhdGg+PGc+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTMyLjUsODBoLTEwYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDEwYzAuMjc2LDAsMC41LDAuMjI0LDAuNSwwLjUgUzMyLjc3Niw4MCwzMi41LDgweiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0zNi41LDgwaC0yYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDJjMC4yNzYsMCwwLjUsMC4yMjQsMC41LDAuNSBTMzYuNzc2LDgwLDM2LjUsODB6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQxLjUsODJoLTEwYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDEwYzAuMjc2LDAsMC41LDAuMjI0LDAuNSwwLjUgUzQxLjc3Nyw4Miw0MS41LDgyeiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0yOS41LDgyaC0xYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDFjMC4yNzYsMCwwLjUsMC4yMjQsMC41LDAuNSBTMjkuNzc2LDgyLDI5LjUsODJ6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTI2LjQ3LDgySDI0LjVjLTAuMjc2LDAtMC41LTAuMjI0LTAuNS0wLjVzMC4yMjQtMC41LDAuNS0wLjVoMS45N2MwLjI3NiwwLDAuNSwwLjIyNCwwLjUsMC41IFMyNi43NDYsODIsMjYuNDcsODJ6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTM1LjUsNzhoLTVjLTAuMjc2LDAtMC41LTAuMjI0LTAuNS0wLjVzMC4yMjQtMC41LDAuNS0wLjVoNWMwLjI3NiwwLDAuNSwwLjIyNCwwLjUsMC41IFMzNS43NzcsNzgsMzUuNSw3OHoiPjwvcGF0aD48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMzIuNSw4NGgtMmMtMC4yNzYsMC0wLjUtMC4yMjQtMC41LTAuNXMwLjIyNC0wLjUsMC41LTAuNWgyYzAuMjc2LDAsMC41LDAuMjI0LDAuNSwwLjUgUzMyLjc3Niw4NCwzMi41LDg0eiI+PC9wYXRoPjwvZz48Zz48cGF0aCBmaWxsPSIjZmRmY2VmIiBkPSJNMjMuNSw3MS41YzAsMC0xLjU2NywwLTMuNSwwcy0zLjUtMS41NjctMy41LTMuNWMwLTEuNzgxLDEuMzM1LTMuMjM0LDMuMDU1LTMuNDU1IEMxOS41MjcsNjQuMzY2LDE5LjUsNjQuMTg3LDE5LjUsNjRjMC0xLjkzMywxLjU2Ny0zLjUsMy41LTMuNWMxLjAzMiwwLDEuOTUsMC40NTUsMi41OSwxLjE2NWMwLjM4NC0xLjgwOCwxLjk4Ny0zLjE2NSwzLjkxLTMuMTY1IGMyLjIwOSwwLDQsMS43OTEsNCw0YzAsMC4xOTEtMC4wMywwLjM3NC0wLjA1NiwwLjU1OEMzMy44NzIsNjIuNzE0LDM0LjQwOCw2Mi41LDM1LDYyLjVjMS4yMjgsMCwyLjI0NSwwLjg4NywyLjQ1NSwyLjA1NSBDMzcuNjM0LDY0LjUyNywzNy44MTMsNjQuNSwzOCw2NC41YzEuOTMzLDAsMy41LDEuNTY3LDMuNSwzLjVzLTEuNTY3LDMuNS0zLjUsMy41cy03LjUsMC03LjUsMFY3MmgtN1Y3MS41eiI+PC9wYXRoPjxwYXRoIGZpbGw9IiM0NzJiMjkiIGQ9Ik0yMS43NSw2N2MwLjEzOCwwLDAuMjUtMC4xMTIsMC4yNS0wLjI1YzAtMS4yMjMtMC45OTUtMi4yMTgtMi4yMTgtMi4yMTggYy0wLjAzNCwwLjAwOS0wLjczNy0wLjAwMS0xLjI0NCwwLjEzNmMtMC4xMzMsMC4wMzYtMC4yMTIsMC4xNzMtMC4xNzYsMC4zMDZjMC4wMzYsMC4xMzQsMC4xNzMsMC4yMTMsMC4zMDYsMC4xNzYgYzAuNDQ0LTAuMTIsMS4xLTAuMTIsMS4xMTMtMC4xMThjMC45NDgsMCwxLjcxOSwwLjc3MSwxLjcxOSwxLjcxOEMyMS41LDY2Ljg4OCwyMS42MTIsNjcsMjEuNzUsNjd6Ij48L3BhdGg+PGNpcmNsZSBjeD0iMjguNSIgY3k9IjcxLjUiIHI9Ii41IiBmaWxsPSIjNDcyYjI5Ij48L2NpcmNsZT48cGF0aCBmaWxsPSIjNDcyYjI5IiBkPSJNMjAsNzJoMy41YzAuMjc2LDAsMC41LTAuMjI0LDAuNS0wLjVTMjMuNzc2LDcxLDIzLjUsNzFIMjBjLTEuNjU0LDAtMy0xLjM0Ni0zLTMgYzAtMS40OTYsMS4xMjUtMi43NjgsMi42MTgtMi45NTljMC4xMzQtMC4wMTgsMC4yNTUtMC4wODgsMC4zMzYtMC4xOTZzMC4xMTUtMC4yNDQsMC4wOTQtMC4zNzdDMjAuMDI1LDY0LjMxNCwyMCw2NC4xNiwyMCw2NCBjMC0xLjY1NCwxLjM0Ni0zLDMtM2MwLjg1LDAsMS42MzgsMC4zNTUsMi4yMTksMWMwLjEyNSwwLjEzOSwwLjMyMSwwLjE5OCwwLjUsMC4xNDhjMC4xODItMC4wNDksMC4zMjEtMC4xOTUsMC4zNi0wLjM3OSBDMjYuNDIsNjAuMTY1LDI3Ljg1OSw1OSwyOS41LDU5YzEuOTMsMCwzLjUsMS41NywzLjUsMy41YzAsMC4xNDMtMC4wMjEsMC4yOC0wLjA0MSwwLjQxOGMtMC4wMjksMC4yMDMsMC4wNjMsMC40MzgsMC4yNDIsMC41NCBjMC4xNzksMC4xMDIsMC4zOTYsMC4xMTgsMC41NTYtMC4wMUMzNC4xMjIsNjMuMTU1LDM0LjU1MSw2MywzNSw2M2MwLjk2NiwwLDEuNzkyLDAuNjkxLDEuOTYzLDEuNjQ0IGMwLjA0OCwwLjI2NywwLjI5NiwwLjQ0NiwwLjU2OSwwLjQwNUMzNy42ODYsNjUuMDI1LDM3Ljg0LDY1LDM4LDY1YzEuNjU0LDAsMywxLjM0NiwzLDNzLTEuMzQ2LDMtMywzaC03LjUgYy0wLjI3NiwwLTAuNSwwLjIyNC0wLjUsMC41czAuMjI0LDAuNSwwLjUsMC41SDM4YzIuMjA2LDAsNC0xLjc5NCw0LTRzLTEuNzk0LTQtNC00Yy0wLjA1OSwwLTAuMTE2LDAuMDAyLTAuMTc0LDAuMDA2IEMzNy40MTIsNjIuODIsMzYuMjg5LDYyLDM1LDYyYy0wLjM0OSwwLTAuNjg5LDAuMDYxLTEuMDExLDAuMThDMzMuODI0LDU5Ljg0NywzMS44NzQsNTgsMjkuNSw1OCBjLTEuODMxLDAtMy40NjYsMS4xMjctNC4xNTMsMi43NzRDMjQuNjY3LDYwLjI3NiwyMy44NDUsNjAsMjMsNjBjLTIuMjA2LDAtNCwxLjc5NC00LDRjMCwwLjA0OCwwLjAwMSwwLjA5NSwwLjAwNCwwLjE0MiBDMTcuMjYxLDY0LjU5LDE2LDY2LjE2OSwxNiw2OEMxNiw3MC4yMDYsMTcuNzk0LDcyLDIwLDcyeiI+PC9wYXRoPjxwYXRoIGZpbGw9IiM0NzJiMjkiIGQ9Ik0yNS41LDcxYzAuMTU5LDAsMC44NDEsMCwxLDBjMC4yNzYsMCwwLjUsMC4yMjQsMC41LDAuNWMwLDAuMjc2LTAuMjI0LDAuNS0wLjUsMC41IGMtMC4xNTksMC0wLjg0MSwwLTEsMGMtMC4yNzYsMC0wLjUtMC4yMjQtMC41LTAuNUMyNSw3MS4yMjQsMjUuMjI0LDcxLDI1LjUsNzF6Ij48L3BhdGg+PC9nPjxnPjxwb2x5Z29uIGZpbGw9IiNmMWJjMTkiIHBvaW50cz0iODIsNTIgNjEsMzEgNDYsMzEgNDAsMzEgMjAsNTIgMjYsNTIgNDMuMDczLDM0LjA3MyA2MSw1MiI+PC9wb2x5Z29uPjxwYXRoIGZpbGw9IiM0NzJiMjkiIGQ9Ik04Miw1Mi41SDYxYy0wLjEzMywwLTAuMjYtMC4wNTMtMC4zNTQtMC4xNDZMNDMuMDgyLDM0Ljc4OWwtMTYuNzIsMTcuNTU2IEMyNi4yNjgsNTIuNDQ0LDI2LjEzNyw1Mi41LDI2LDUyLjVoLTZjLTAuMiwwLTAuMzgxLTAuMTE5LTAuNDYtMC4zMDNjLTAuMDc4LTAuMTg0LTAuMDQtMC4zOTcsMC4wOTgtMC41NDJsMjAtMjEgQzM5LjczMiwzMC41NTYsMzkuODYzLDMwLjUsNDAsMzAuNWgyMWMwLjEzMywwLDAuMjYsMC4wNTMsMC4zNTQsMC4xNDZsMjEsMjFjMC4xNDMsMC4xNDMsMC4xODYsMC4zNTgsMC4xMDgsMC41NDUgQzgyLjM4NSw1Mi4zNzgsODIuMjAyLDUyLjUsODIsNTIuNXogTTYxLjIwNyw1MS41aDE5LjU4NmwtMjAtMjBINDAuMjE0bC0xOS4wNDcsMjBoNC42MTlsMTYuOTI1LTE3Ljc3MiBjMC4wOTMtMC4wOTgsMC4yMjItMC4xNTMsMC4zNTYtMC4xNTVjMC4xMjMsMCwwLjI2NSwwLjA1MSwwLjM1OSwwLjE0Nkw2MS4yMDcsNTEuNXoiPjwvcGF0aD48cGF0aCBmaWxsPSIjY2JjOWJjIiBkPSJNNTAuNDk1LDY3LjUwNUM1MC4zNjMsNjcuMzc0LDUwLjE4Niw2Ny4zLDUwLDY3LjNIMzMuMTg3Yy0xLjM3MiwwLTIuNDg3LTEuMTE2LTIuNDg3LTIuNDg4IFY1Mi4xNTJsMTIuMzAxLTEzLjEyOUw1OC40OSw1NS40OGMwLjEzMywwLjE0MSwwLjMxNiwwLjIyLDAuNTEsMC4yMmMwLjAwMiwwLDExLjMtMC4xMTgsMTEuMy0wLjExOHY5LjIzIGMwLDEuMzcyLTEuMTE1LDIuNDg4LTIuNDg3LDIuNDg4SDYyYy0wLjM4NywwLTAuNywwLjMxMy0wLjcsMC43djEwLjMxTDUwLjQ5NSw2Ny41MDV6Ij48L3BhdGg+PHBhdGggZmlsbD0iIzQ3MmIyOSIgZD0iTTQzLjAwMiw0MC4wNDVsMTQuOTc4LDE1LjkxNWMwLjI2NSwwLjI4MSwwLjYzNCwwLjQ0LDEuMDE5LDAuNDRjMC4wMDUsMCwwLjAxLDAsMC4wMTUsMCBMNjkuNiw1Ni4yOXY4LjUyM2MwLDAuOTg2LTAuODAyLDEuNzg4LTEuNzg4LDEuNzg4SDYyYy0wLjc3MywwLTEuNCwwLjYyNi0xLjQsMS40djguNjJsLTkuNjEtOS42MSBjLTAuMjYzLTAuMjYzLTAuNjE5LTAuNDEtMC45OS0wLjQxSDMzLjE4N2MtMC45ODYsMC0xLjc4Ny0wLjgwMi0xLjc4Ny0xLjc4OFY1Mi40MjhMNDMuMDAyLDQwLjA0NSBNNDMsMzhMMzAsNTEuODc1djEyLjkzOCBDMzAsNjYuNTczLDMxLjQyNyw2OCwzMy4xODcsNjhINTBsMTIsMTJWNjhoNS44MTJDNjkuNTczLDY4LDcxLDY2LjU3Myw3MSw2NC44MTN2LTkuOTM4TDU5LDU1TDQzLDM4TDQzLDM4eiI+PC9wYXRoPjxwYXRoIGZpbGw9IiM0NzJiMjkiIGQ9Ik0zNCw1OC40NThjLTAuMTM4LDAtMC4yNS0wLjExMi0wLjI1LTAuMjV2LTUuMjkyYzAtMC4xMzgsMC4xMTItMC4yNSwwLjI1LTAuMjUgczAuMjUsMC4xMTIsMC4yNSwwLjI1djUuMjkyQzM0LjI1LDU4LjM0NiwzNC4xMzgsNTguNDU4LDM0LDU4LjQ1OHoiPjwvcGF0aD48cGF0aCBmaWxsPSIjNDcyYjI5IiBkPSJNMzQuOTE3LDY0LjI1Yy0wLjY0NCwwLTEuMTY3LTAuNTIzLTEuMTY3LTEuMTY3di0yLjg3NWMwLTAuMTM4LDAuMTEyLTAuMjUsMC4yNS0wLjI1IHMwLjI1LDAuMTEyLDAuMjUsMC4yNXYyLjg3NWMwLDAuMzY4LDAuMjk5LDAuNjY3LDAuNjY3LDAuNjY3YzAuMTM4LDAsMC4yNSwwLjExMiwwLjI1LDAuMjVTMzUuMDU1LDY0LjI1LDM0LjkxNyw2NC4yNXoiPjwvcGF0aD48cGF0aCBmaWxsPSIjNDcyYjI5IiBkPSJNNDQuMjA4LDY0LjI1aC03Yy0wLjEzOCwwLTAuMjUtMC4xMTItMC4yNS0wLjI1czAuMTEyLTAuMjUsMC4yNS0wLjI1aDcgYzAuMTM4LDAsMC4yNSwwLjExMiwwLjI1LDAuMjVTNDQuMzQ2LDY0LjI1LDQ0LjIwOCw2NC4yNXoiPjwvcGF0aD48cGF0aCBmaWxsPSIjNDcyYjI5IiBkPSJNNDkuMDgzLDY0LjI1aC0yLjk1OGMtMC4xMzgsMC0wLjI1LTAuMTEyLTAuMjUtMC4yNXMwLjExMi0wLjI1LDAuMjUtMC4yNWgyLjk1OCBjMC4xMzgsMCwwLjI1LDAuMTEyLDAuMjUsMC4yNVM0OS4yMjEsNjQuMjUsNDkuMDgzLDY0LjI1eiI+PC9wYXRoPjxnPjxwYXRoIGZpbGw9IiM0NzJiMjkiIGQ9Ik03Mi41LDQ2Ljc1Yy0wLjA2NCwwLTAuMTI4LTAuMDI0LTAuMTc3LTAuMDczbC00Ljc5Mi00Ljc5MmMtMC4wOTgtMC4wOTgtMC4wOTgtMC4yNTYsMC0wLjM1NCBzMC4yNTYtMC4wOTgsMC4zNTQsMGw0Ljc5Miw0Ljc5MmMwLjA5OCwwLjA5OCwwLjA5OCwwLjI1NiwwLDAuMzU0QzcyLjYyOCw0Ni43MjYsNzIuNTY0LDQ2Ljc1LDcyLjUsNDYuNzV6Ij48L3BhdGg+PC9nPjxnPjxwYXRoIGZpbGw9IiM0NzJiMjkiIGQ9Ik02Ni4xODgsNDAuNDM4Yy0wLjA2NCwwLTAuMTI4LTAuMDI0LTAuMTc3LTAuMDczbC02LjYxNC02LjYxNEg1MC41Yy0wLjEzOCwwLTAuMjUtMC4xMTItMC4yNS0wLjI1IHMwLjExMi0wLjI1LDAuMjUtMC4yNWg5YzAuMDY2LDAsMC4xMywwLjAyNiwwLjE3NywwLjA3M2w2LjY4OCw2LjY4OGMwLjA5OCwwLjA5OCwwLjA5OCwwLjI1NiwwLDAuMzU0IEM2Ni4zMTUsNDAuNDEzLDY2LjI1Miw0MC40MzgsNjYuMTg4LDQwLjQzOHoiPjwvcGF0aD48L2c+PC9nPgo8L3N2Zz4=" />
+                    </a>
+                    <a style="font-family:'Courier New'">PassWordManager</a>
+                </div>
+
+                <!-- Navbar Links -->
+                <ul id="menu">
+                    <li><a href="@Url.Action("createaccount","securepass")">Add account</a></li>
+
+                    <li><a href="@Url.Action("Dashboard","securepass")">Dashboard</a></li>
+
+                    <li><a href="@Url.Action("Logiin","securepass")">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+    <!-- Menu Icon -->
+    <div class="menuIcon">
+        <span class="icon icon-bars"></span>
+        <span class="icon icon-bars overlay"></span>
+    </div>
+
+
+
+
+
+
+    <div class="containers" id="dashboardBoxes">
+        <a class="card1" id="dashboard" href="@Url.Action("Dashboard","securepass")">
+            <h3>Dashboard</h3>
+            <p class="small">Click to View Your Details.</p>
+            <div class="go-corner">
+                <div class="go-arrow">
+                    →
+                </div>
+            </div>
+        </a>
+
+
+
+
+        <a class="card4" id="addAccount">
+
+            <svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+                <desc>Created with Sketch.</desc>
+                <defs></defs>
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+                    <g id="Artboard-Copy-19" transform="translate(-874.000000, -1729.000000)" stroke-width="1.5">
+                        <g id="Group-22" transform="translate(0.000000, 1672.000000)">
+                            <g id="Group-46" transform="translate(688.000000, 33.000000)">
+                                <g id="Group-42" transform="translate(166.000000, 0.000000)">
+                                    <g id="Group-25" transform="translate(21.000000, 25.000000)">
+                                        <g id="Group-9" transform="translate(0.000000, 17.666667)">
+                                            <path d="M14,8.33306667 L14,12.3330667" id="Stroke-3" stroke="#CD3D73"></path>
+                                            <polyline id="Stroke-1" stroke="#666666" points="18 4.33306667 18 12.3330667 10 12.3330667"></polyline>
+                                            <polyline id="Stroke-5" stroke="#666666" points="10 5.1332 10 12.3332 2 12.3332 2 6.3332"></polyline>
+                                            <polygon id="Stroke-7" stroke="#666666" points="9 6.33306667 14 0.333066667 5 0.333066667 0 6.33306667"></polygon>
+                                        </g>
+                                        <path d="M20,23.9997333 L14,17.9997333" id="Stroke-10" stroke="#666666"></path>
+                                        <g id="Group-15" transform="translate(5.666667, 0.000000)" stroke="#666666">
+                                            <polygon id="Stroke-11" points="9.28906667 7.99973333 16.3330667 -0.000266666667 7.33306667 -0.000266666667 0.289066667 7.99973333"></polygon>
+                                            <path d="M24.3333333,7.99973333 L16.3333333,-0.000266666667" id="Stroke-13"></path>
+                                        </g>
+                                        <path d="M16,6.8148 L16,14.0001333" id="Stroke-16" stroke="#666666"></path>
+                                        <polyline id="Stroke-17" stroke="#666666" points="28 5.99973333 28 23.9997333 24 23.9997333"></polyline>
+                                        <path d="M8,13.9997333 L8,7.99973333" id="Stroke-19" stroke="#666666"></path>
+                                        <path d="M20,8.99973333 L20,9.99973333" id="Stroke-20" stroke="#CD3D73"></path>
+                                        <path d="M24,8.99973333 L24,9.99973333" id="Stroke-21" stroke="#CD3D73"></path>
+                                        <path d="M20,13.9997333 L20,14.9997333" id="Stroke-22" stroke="#CD3D73"></path>
+                                        <path d="M24,13.9997333 L24,14.9997333" id="Stroke-23" stroke="#CD3D73"></path>
+                                        <path d="M24,18.9997333 L24,19.9997333" id="Stroke-24" stroke="#CD3D73"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+            <h3>Adding account</h3>
+            <p class="small">Add your Account details and passwords  </p>
+            <div class="dimmer"></div>
+            <div class="go-corner" href="#">
+                <div class="go-arrow">
+                    →
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="userDetailsForm" style="display:none">
+
+        <div class="venusa">
+            <div class="right">
+                <p>
+                    <label>Select you Account Type</label>
+                    <select name="lanaguage" id="dropdown" class="dropdown-btn">
+                        <option value="GOOGLE">Google</option>
+                        <option value="FACEBOOK">Facebook</option>
+                        <option value="INSTAGRAM">Instagram</option>
+                        <option value="BANKING">Banking Passwords</option>
+                    </select>
+                </p>
+            </div>
+        </div>
+
+
+        <div class="form-container" id="googleDiv">
+            <img width="48" height="48" src="https://img.icons8.com/color/48/google-logo.png" alt="google-logo" />
+
+            <form id="friendform">
+                <input type="text" name="GoogleuserName" id="GoogleuserNames" placeholder="Email or Phone" required>
+                <input type="text" name="GooglePassword" id="GooglePasswords" placeholder="Password" required>
+
+                <input id="btnsubmit" type="button" value="Save">
+            </form>
+
+
+        </div>
+
+
+
+
+
+        <div class="form-container" style="display:none" id="facebookdiv">
+            <img width="48" height="48" src="https://img.icons8.com/color/48/facebook.png" alt="facebook" />
+
+            <form id="friendformfb">
+                <input type="text" name="FBuserName" placeholder="Username or Phone" required>
+                <input type="password" name="FBPassword" placeholder="Password" required>
+                <input id="btnsubmitfb" type="button" value="Save">
+            </form>
+        </div>
+
+
+
+        <div class="form-container" style="display:none" id="instagramDiv">
+            <img width="48" height="48" src="https://img.icons8.com/fluency/48/instagram-new.png" alt="instagram-new" />
+
+            <form id="friendforminsta">
+                <input type="text" name="INuserName" placeholder="Username or Phone" required>
+                <input type="password" name="INPassword" placeholder="Password" required>
+                <input id="btnsubmitinsta" type="button" value="Save">
+            </form>
+        </div>
+
+
+        <div class="form-container" style="display:none" id="bankingdiv">
+            <img width="48" height="48" src="https://img.icons8.com/color/48/bank-building.png" alt="bank-building" />
+
+            <form id="friendformbanking">
+                <input type="text" name="Bankname" placeholder="Bankname" required>
+                <input type="text" name="BankPhonenumber" placeholder="Phonenumber" required>
+                <input type="password" name="UPIPin" placeholder="UPI-Pin" required>
+                <input id="btnsubmitbanking" type="button" value="Save">
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Toggle menu when menu icon is clicked
+            $('.menuIcon').click(function () {
+                $('#navbar ul').toggleClass('show');
+            });
+        });
+
+        $(document).ready(function () {
+            $('#addAccount').click(function () {
+
+                $('#dashboardBoxes').hide();
+                $('#footerPage').hide();
+                $('.userDetailsForm').show();
+
+            });
+
+
+
+            $('#dropdown').change(function () {
+                var selectedOption = $(this).val();
+                if (selectedOption === 'GOOGLE') {
+                    $('#instagramDiv').hide();
+                    $('#bankingdiv').hide();
+                    $('#facebookdiv').hide();
+                    $('#googleDiv').show();
+                    $('#facebookdiv').hide();
+                } else if (selectedOption === 'INSTAGRAM') {
+                    $('#googleDiv').hide();
+                    $('#facebookdiv').hide();
+                    $('#bankingdiv').hide();
+                    $('#instagramDiv').show();
+                }
+                else if (selectedOption == 'FACEBOOK') {
+                    $('#googleDiv').hide();
+                    $('#instagramDiv').hide();
+                    $('#bankingdiv').hide();
+                    $('#facebookdiv').show();
+                }
+
+                else if (selectedOption == 'BANKING') {
+                    $('#googleDiv').hide();
+                    $('#facebookdiv').hide();
+                    $('#instagramDiv').hide();
+                    $('#bankingdiv').show();
+                }
+            });
+
+
+
+
+            $(document).ready(function () {
+                $("#btnsubmit").click(function (e) {
+                    var dropdownval = $('#dropdown').val();
+                    //Serialize the form datas.
+                    var valdata = $("#friendform").serialize();
+                    var formData = valdata + "&dropdownValue=" + dropdownval;
+                    $.ajax({
+                        url: "/securepass/createaccount",
+                        type: "POST",
+                        dataType: 'json',
+                        data: formData,
+                        success: function (response) {
+                            if (response.success) {
+                                // Reset form after successful submission
+                                $("#friendform")[0].reset();
+                            }
+
+                        }
+
+
+
+
+                    });
+                });
+            });
+
+            $(document).ready(function () {
+                $("#btnsubmitfb").click(function (e) {
+                    var dropdownval = $('#dropdown').val();
+                    //Serialize the form datas.
+                    var valdata = $("#friendformfb").serialize();
+                    var formData = valdata + "&dropdownValue=" + dropdownval;
+                    $.ajax({
+                        url: "/securepass/createaccount",
+                        type: "POST",
+                        dataType: 'json',
+                        data: formData,
+                        success: function (response) {
+                            if (response.success) {
+                                $("#friendformfb")[0].reset();
+                            }
+
+                        }
+
+
+
+                    });
+                });
+            });
+
+            $(document).ready(function () {
+                $("#btnsubmitinsta").click(function (e) {
+                    var dropdownval = $('#dropdown').val();
+                    //Serialize the form datas.
+                    var valdata = $("#friendforminsta").serialize();
+                    var formData = valdata + "&dropdownValue=" + dropdownval;
+                    //to get alert popup
+                    $.ajax({
+                        url: "/securepass/createaccount",
+                        type: "POST",
+                        dataType: 'json',
+                        data: formData,
+                        success: function (response) {
+                            if (response.success) {
+                                // Reset form after successful submission
+                                $("#friendforminsta")[0].reset();
+                            }
+
+                        }
+
+
+
+                    });
+                });
+            });
+
+            $(document).ready(function () {
+                $("#btnsubmitbanking").click(function (e) {
+                    var dropdownval = $('#dropdown').val();
+                    //Serialize the form datas.
+                    var valdata = $("#friendformbanking").serialize();
+                    var formData = valdata + "&dropdownValue=" + dropdownval;
+                    $.ajax({
+                        url: "/securepass/createaccount",
+                        type: "POST",
+                        dataType: 'json',
+                        data: formData,
+                        success: function (response) {
+                            if (response.success) {
+                                $("#friendformbanking")[0].reset();
+                            }
+
+                        }
+
+
+
+                    });
+                });
+            });
+
+
+
+
+
+
+
+        });
+
+    </script>
+    <footer  id="footerPage" class="border-top footer text-muted" style="
+   bottom: auto;
+   margin-top: 205px;
+   position: fixed;
+   ">
+        <div class="container footer-bottom clearfix" style="
+      padding-top: 30px;
+      padding-bottom: 30px;
+      width: 1167px;
+      color: #fff;
+      ">
+            <div class="copyright" style="
+         float: left;
+         color: grey;
+         ">
+                © Copyright <strong><span>SecurePassage</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits" style="
+         float: right;
+         font-size: 13px;
+         color: grey;
+         ">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
+                Designed by <a>Vignesh</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

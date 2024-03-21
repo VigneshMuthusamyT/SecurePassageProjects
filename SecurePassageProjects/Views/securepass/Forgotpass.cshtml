@@ -1,0 +1,347 @@
+﻿
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .my-header {
+        display: none;
+    }
+
+    .my-footer {
+        display: none;
+    }
+
+    html, body {
+        display: grid;
+        height: 100%;
+        width: 100%;
+        place-items: center;
+        background: #f2f2f2;
+        /* background: linear-gradient(-135deg, #c850c0, #4158d0); */
+    }
+
+    ::selection {
+        background: #4158d0;
+        color: #fff;
+    }
+
+    .wrapper {
+        width: 380px;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+        margin-left: 252px;
+    }
+
+        .wrapper .title {
+            font-size: 35px;
+            font-weight: 600;
+            text-align: center;
+            line-height: 100px;
+            color: #fff;
+            user-select: none;
+            border-radius: 15px 15px 0 0;
+            background: linear-gradient(-135deg, #c850c0, #4158d0);
+        }
+
+        .wrapper form {
+            padding: 10px 30px 50px 30px;
+        }
+
+            .wrapper form .field {
+                height: 50px;
+                width: 100%;
+                margin-top: 37px;
+                position: relative;
+            }
+
+                .wrapper form .field input {
+                    height: 100%;
+                    width: 100%;
+                    outline: none;
+                    font-size: 17px;
+                    padding-left: 20px;
+                    border: 1px solid lightgrey;
+                    border-radius: 25px;
+                    transition: all 0.3s ease;
+                }
+
+                    .wrapper form .field input:focus,
+                    form .field input:valid {
+                        border-color: #4158d0;
+                    }
+
+                .wrapper form .field label {
+                    position: absolute;
+                    top: 50%;
+                    left: 20px;
+                    color: #999999;
+                    font-weight: 400;
+                    font-size: 17px;
+                    pointer-events: none;
+                    transform: translateY(-50%);
+                    transition: all 0.3s ease;
+                }
+
+    form .field input:focus ~ label,
+    form .field input:valid ~ label {
+        top: 0%;
+        font-size: 16px;
+        color: #4158d0;
+        background: #fff;
+        transform: translateY(-50%);
+    }
+
+    form .content {
+        display: flex;
+        width: 100%;
+        height: 50px;
+        font-size: 16px;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+        form .content .checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        form .content input {
+            width: 15px;
+            height: 15px;
+            background: red;
+        }
+
+        form .content label {
+            color: #262626;
+            user-select: none;
+            padding-left: 5px;
+        }
+
+        form .content .pass-link {
+            color: "";
+        }
+
+    form .field input[type="submit"] {
+        color: #fff;
+        border: none;
+        padding-left: 0;
+        margin-top: -10px;
+        font-size: 20px;
+        font-weight: 500;
+        cursor: pointer;
+        background: linear-gradient(-135deg, #c850c0, #4158d0);
+        transition: all 0.3s ease;
+    }
+
+        form .field input[type="submit"]:active {
+            transform: scale(0.95);
+        }
+
+    form .signup-link {
+        color: #262626;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+        form .pass-link a,
+        form .signup-link a {
+            color: #4158d0;
+            text-decoration: none;
+        }
+
+            form .pass-link a:hover,
+            form .signup-link a:hover {
+                text-decoration: underline;
+            }
+
+
+
+
+    #passwordDiv {
+        width: 300px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 65px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+    }
+
+        #passwordDiv:before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: calc(50% - 10px);
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #fff, #ff00ff);
+            transform: rotate(45deg);
+            border-radius: 3px;
+        }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    #password {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        color: #333;
+        margin-top: 10px;
+    }
+
+    /* Animation */
+    @@keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    #passwordDiv:hover {
+        animation: pulse 1s infinite;
+    }
+    /* Mobile responsiveness */
+    @@media screen and (max-width: 500px) {
+
+        .wrapper {
+            width: 354px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+            margin-left: 252px;
+        }
+
+        #passwordDiv {
+            width: 273px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 65px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            margin-left: 282px;
+            margin-top: 20px;
+        }
+
+
+    }
+
+</style>
+
+@model signupModel
+
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html>
+<head>
+    <title>Login Form Design | CodeLab</title>
+    <link rel="stylesheet" href="~/Shared/_Layout.cshtml" asp-append-version="true" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
+</head>
+<body>
+
+    <div class="wrapper">
+
+        <div class="title">
+            Forgot Password
+        </div>
+        <form action="Forgotpass" method="post">
+
+            <div class="field">
+                <input type="text" id="PhoneNumber" name="PhoneNumber" required>
+                <label>PhoneNumber</label>
+                <span id="showvalidate" style="color: red ;margin-bottom: -23px;">
+
+                </span>
+
+            </div>
+
+
+
+
+
+            <div class="field">
+                <input type="submit" id="mobileNumberForm" value="Get Password">
+            </div>
+
+            <div class="signup-link">
+                Go Login page? <a href="@Url.Action("Logiin","securepass")">Login now</a>
+            </div>
+
+        </form>
+
+    </div>
+    <div id="passwordDiv" class="field" style="display:none;">
+
+        <label>Password here</label>
+        <p id="password"></p>
+    </div>
+ 
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#mobileNumberForm').click(function (event) {
+                event.preventDefault(); // Prevent form submission
+
+                var mobileNumber = $('#PhoneNumber').val();
+
+                // Ajax request to fetch password based on mobile number
+                $.ajax({
+                    type: 'POST',
+                    url: '/securepass/Forgotpass/',
+                    data: { phoneNumber: mobileNumber },
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            $('#password').text('Password: ' + response.password);
+                            $('#showvalidate').hide();
+
+                            $('#passwordDiv').show();
+                        }
+                        else {
+                            $('#showvalidate').text('User not found in the database.');
+                            $('#showvalidate').show();
+                        }
+                        
+                    },
+                    error: function () {
+
+                        $('#showvalidate').text('User not found in the database.');
+
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
+
+
+
+</body>
+
+</html>

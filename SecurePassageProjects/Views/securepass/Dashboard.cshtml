@@ -1,0 +1,363 @@
+﻿@model CompositeModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Table Design</title>
+<style>
+    /* Basic styling */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f3f5f8;
+    }
+
+        .container {
+/*             display: flex;
+ */            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+    table {
+            width: 43%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        margin: 50px auto;
+    }
+
+    th, td {
+        border: none;
+        padding: 12px 20px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #242b3b;
+        color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    td {
+        background-color: #f8f9fa;
+        color: #333;
+    }
+
+    /* Styling for table header corners */
+    th:first-child {
+        border-top-left-radius: 10px;
+    }
+
+    th:last-child {
+        border-top-right-radius: 10px;
+    }
+
+    /* Styling for table data corners */
+    td:first-child {
+        border-bottom-left-radius: 10px;
+    }
+
+    td:last-child {
+        border-bottom-right-radius: 10px;
+    }
+
+
+ 
+
+
+        @@media(max-width: 500px) {
+
+            .table thead{
+                display:none;
+            }
+
+            .table, .table tbody, .table tr,.table td{
+                display:none;
+                width:100%;
+
+            }
+
+
+        }
+    
+</style>
+</head>
+<body>
+    <header>
+
+
+        <nav id="navbar" class="">
+            <div class="nav-wrapper">
+                <!-- Navbar Logo -->
+                <div class="logo">
+                    <!-- Logo Placeholder for Illustration -->
+                    @*             <a href="#home"><img width="100px" height="auto" src="https://www.codepel.com/wp-content/uploads/2023/01/CodePel-Logo-2.1.png"></a>
+                    *@
+                    <a href="#home">
+                        <img width="60px" height="auto" alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiPgo8cGF0aCBmaWxsPSIjYzdlZGU2IiBkPSJNODcuMjE1LDU2LjcxQzg4LjM1LDU0LjU1NSw4OSw1Mi4xMDUsODksNDkuNWMwLTYuNjIxLTQuMTU5LTEyLjI1Ny0xMC4wMDEtMTQuNDc4IEM3OC45OTksMzUuMDE1LDc5LDM1LjAwOCw3OSwzNWMwLTExLjU5OC05LjQwMi0yMS0yMS0yMWMtOS43ODQsMC0xNy45ODEsNi43MDEtMjAuMzEzLDE1Ljc1N0MzNi4yMTEsMjkuMjcyLDM0LjYzOCwyOSwzMywyOSBjLTcuNjkyLDAtMTQuMDIzLDUuNzkzLTE0Ljg5LDEzLjI1MkMxMi45MDYsNDMuMzUzLDksNDcuOTY5LDksNTMuNUM5LDU5Ljg1MSwxNC4xNDksNjUsMjAuNSw2NWMwLjE3NywwLDAuMzUyLTAuMDEyLDAuNTI2LTAuMDIyIEMyMS4wMjIsNjUuMTUzLDIxLDY1LjMyNCwyMSw2NS41QzIxLDc2LjgyMiwzMC4xNzgsODYsNDEuNSw4NmM2LjQzNywwLDEyLjE3NS0yLjk3MiwxNS45MzQtNy42MTRDNTkuNjEyLDgwLjYxMSw2Mi42NCw4Miw2Niw4MiBjNC42NSwwLDguNjc0LTIuNjUsMTAuNjY2LTYuNTE4Qzc3LjcxOCw3NS44MTcsNzguODM3LDc2LDgwLDc2YzYuMDc1LDAsMTEtNC45MjUsMTEtMTFDOTEsNjEuNjg5LDg5LjUzLDU4LjcyNyw4Ny4yMTUsNTYuNzF6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZkZmNlZiIgZD0iTTYwLjUsMzkuNVY0MGgtM3YtMC41YzAsMC00LjI0MiwwLTUuNSwwYy0yLjQ4NSwwLTQuNS0yLjAxNS00LjUtNC41IGMwLTIuMzMzLDEuNzgyLTQuMjI5LDQuMDU1LTQuNDU1QzUxLjUzMywzMC4zNjQsNTEuNSwzMC4xODcsNTEuNSwzMGMwLTIuNDg1LDIuMDE1LTQuNSw0LjUtNC41YzEuNDM4LDAsMi43MDMsMC42ODYsMy41MjcsMS43MzYgQzU5LjY2NywyNC42LDYxLjgyOSwyMi41LDY0LjUsMjIuNWMyLjc2MSwwLDUsMi4yMzksNSw1YzAsMC40NDYtMC4wNzcsMC44Ny0wLjE4NywxLjI4MmMwLjY0Mi0wLjc3NywxLjYtMS4yODIsMi42ODctMS4yODIgYzEuNzgxLDAsMy4yMzQsMS4zMzUsMy40NTUsMy4wNTVDNzUuNjM2LDMwLjUzMyw3NS44MTMsMzAuNSw3NiwzMC41YzIuNDg1LDAsNC41LDIuMDE1LDQuNSw0LjVzLTIuMDE1LDQuNS00LjUsNC41cy05LjUsMC05LjUsMCBINjAuNXoiPjwvcGF0aD48cGF0aCBmaWxsPSIjNDcyYjI5IiBkPSJNNjQuNSwyMmMzLjAzMywwLDUuNSwyLjQ2Nyw1LjUsNS41YzAsMC4wMTYsMCwwLjAzMSwwLDAuMDQ3QzcwLjYwMiwyNy4xOTIsNzEuMjksMjcsNzIsMjcgYzEuODMxLDAsMy40MTEsMS4yNjEsMy44NTgsMy4wMDVDNzUuOTA1LDMwLjAwMiw3NS45NTIsMzAsNzYsMzBjMi43NTcsMCw1LDIuMjQzLDUsNXMtMi4yNDMsNS01LDVINjAuNSBjLTAuMjc2LDAtMC41LTAuMjI0LTAuNS0wLjVzMC4yMjQtMC41LDAuNS0wLjVINzZjMi4yMDYsMCw0LTEuNzk0LDQtNHMtMS43OTQtNC00LTRjLTAuMTE3LDAtMC4yMywwLjAxNy0wLjM0MywwLjAzMiBsLTAuMTQxLDAuMDE5Yy0wLjAyMSwwLjAwMy0wLjA0MSwwLjAwNC0wLjA2MiwwLjAwNGMtMC4yNDYsMC0wLjQ2Mi0wLjE4NS0wLjQ5NS0wLjQzN0M3NC43NjgsMjkuMTI1LDczLjQ5NiwyOCw3MiwyOCBjLTAuODg1LDAtMS43MjMsMC40MDEtMi4zMDEsMS4xYy0wLjA5OCwwLjExOC0wLjI0MSwwLjE4Mi0wLjM4NiwwLjE4MmMtMC4wNzgsMC0wLjE1Ni0wLjAxOC0wLjIyOC0wLjA1NiBjLTAuMjA5LTAuMTA3LTAuMzE0LTAuMzQ2LTAuMjU0LTAuNTczQzY4Ljk0NiwyOC4yMTgsNjksMjcuODUyLDY5LDI3LjVjMC0yLjQ4MS0yLjAxOS00LjUtNC41LTQuNSBjLTIuMzgxLDAtNC4zNDcsMS44NzItNC40NzQsNC4yNjNjLTAuMDExLDAuMjA4LTAuMTUsMC4zODctMC4zNDksMC40NWMtMC4wNSwwLjAxNi0wLjEwMSwwLjAyNC0wLjE1MiwwLjAyNCBjLTAuMTUsMC0wLjI5Ni0wLjA2OS0wLjM5Mi0wLjE5MkM1OC4zNjIsMjYuNTYzLDU3LjIyMSwyNiw1NiwyNmMtMi4yMDYsMC00LDEuNzk0LTQsNGMwLDAuMTE3LDAuMDE3LDAuMjMsMC4wMzIsMC4zNDMgbDAuMDE5LDAuMTQxYzAuMDE2LDAuMTM0LTAuMDIyLDAuMjY4LTAuMTA2LDAuMzczYy0wLjA4NCwwLjEwNS0wLjIwNywwLjE3Mi0wLjM0LDAuMTg1QzQ5LjU0OSwzMS4yNDcsNDgsMzIuOTQ5LDQ4LDM1IGMwLDIuMjA2LDEuNzk0LDQsNCw0aDUuNWMwLjI3NiwwLDAuNSwwLjIyNCwwLjUsMC41UzU3Ljc3Niw0MCw1Ny41LDQwSDUyYy0yLjc1NywwLTUtMi4yNDMtNS01YzAtMi4zOTcsMS42ODktNC40MTMsNC4wMDMtNC44NzcgQzUxLjAwMSwzMC4wODIsNTEsMzAuMDQxLDUxLDMwYzAtMi43NTcsMi4yNDMtNSw1LTVjMS4xNzYsMCwyLjI5MywwLjQxNiwzLjE4MywxLjE2NEM1OS43ODEsMjMuNzYsNjEuOTQ1LDIyLDY0LjUsMjJMNjQuNSwyMnoiPjwvcGF0aD48cGF0aCBmaWxsPSIjNDcyYjI5IiBkPSJNNjYsMjljMS40MDMsMCwyLjYwOSwwLjk5OSwyLjkxMywyLjM0MUM2OS4yOCwzMS4xMTksNjkuNjk5LDMxLDcwLjEyNSwzMSBjMS4yMDIsMCwyLjE5OCwwLjg5NywyLjM1MywyLjA2OEM3Mi42ODEsMzMuMDIyLDcyLjg3NCwzMyw3My4wNjMsMzNjMS41MjksMCwyLjgxMSwxLjIsMi45MTgsMi43MzIgQzc1Ljk5LDM1Ljg3LDc1Ljg4NiwzNS45OSw3NS43NDksMzZjLTAuMDA2LDAtMC4wMTIsMC0wLjAxOCwwYy0wLjEzLDAtMC4yNC0wLjEwMS0wLjI0OS0wLjIzMiBjLTAuMDg5LTEuMjcxLTEuMTUxLTIuMjY4LTIuNDE5LTIuMjY4Yy0wLjIyOSwwLTAuNDcsMC4wNDItMC43MzgsMC4xMjdjLTAuMDIyLDAuMDA3LTAuMDQ1LDAuMDEtMC4wNjcsMC4wMSBjLTAuMDU1LDAtMC4xMS0wLjAyLTAuMTU2LTAuMDU0QzcyLjAzOCwzMy41MzcsNzIsMzMuNDU1LDcyLDMzLjM3NWMwLTEuMDM0LTAuODQxLTEuODc1LTEuODc1LTEuODc1IGMtMC40NDcsMC0wLjg4NSwwLjE2OC0xLjIzMSwwLjQ3M2MtMC4wNDcsMC4wNDEtMC4xMDYsMC4wNjMtMC4xNjUsMC4wNjNjLTAuMDMyLDAtMC4wNjMtMC4wMDYtMC4wOTMtMC4wMTkgYy0wLjA4OC0wLjAzNS0wLjE0OC0wLjExNy0wLjE1NS0wLjIxMkM2OC4zNzcsMzAuNTEyLDY3LjI4OCwyOS41LDY2LDI5LjVjLTAuMjA4LDAtMC40MjUsMC4wMzQtMC42ODIsMC4xMDcgYy0wLjAyMywwLjAwNy0wLjA0NywwLjAxLTAuMDcsMC4wMWMtMC4xMDksMC0wLjIwNy0wLjA3My0wLjIzOS0wLjE4MmMtMC4wMzgtMC4xMzMsMC4wMzktMC4yNzEsMC4xNzItMC4zMDkgQzY1LjQ4MywyOS4wNCw2NS43NDQsMjksNjYsMjlMNjYsMjl6Ij48L3BhdGg+PHBhdGggZmlsbD0iIzQ3MmIyOSIgZD0iTTUyLjExNywzMC41YzEuMzI2LDAsMi41MDgsMC44OTcsMi44NzQsMi4xODJjMC4wMzgsMC4xMzMtMC4wMzksMC4yNzEtMC4xNzIsMC4zMDkgQzU0Ljc5NSwzMi45OTcsNTQuNzcyLDMzLDU0Ljc1LDMzYy0wLjEwOSwwLTAuMjA5LTAuMDcyLTAuMjQtMC4xODJDNTQuMjA1LDMxLjc0OCw1My4yMjEsMzEsNTIuMTE3LDMxIGMtMC4xMTcsMC0wLjIzLDAuMDE0LTAuMzQyLDAuMDI5Yy0wLjAxMiwwLjAwMi0wLjAyMywwLjAwMy0wLjAzNSwwLjAwM2MtMC4xMjEsMC0wLjIyOS0wLjA5Mi0wLjI0Ni0wLjIxNyBjLTAuMDE5LTAuMTM3LDAuMDc3LTAuMjYzLDAuMjE0LTAuMjgxQzUxLjg0MiwzMC41MTYsNTEuOTc4LDMwLjUsNTIuMTE3LDMwLjVMNTIuMTE3LDMwLjV6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTg2LjUsNjNoLTEwYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDEwYzAuMjc2LDAsMC41LDAuMjI0LDAuNSwwLjUgUzg2Ljc3Nyw2Myw4Ni41LDYzeiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik04OS41LDYzaC0xYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDFjMC4yNzYsMCwwLjUsMC4yMjQsMC41LDAuNSBTODkuNzc3LDYzLDg5LjUsNjN6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTk0LjQ5MSw2NUg4NS41Yy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDguOTkxYzAuMjc2LDAsMC41LDAuMjI0LDAuNSwwLjUgUzk0Ljc2Nyw2NSw5NC40OTEsNjV6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTgzLjUsNjVoLTFjLTAuMjc2LDAtMC41LTAuMjI0LTAuNS0wLjVzMC4yMjQtMC41LDAuNS0wLjVoMWMwLjI3NiwwLDAuNSwwLjIyNCwwLjUsMC41IFM4My43NzcsNjUsODMuNSw2NXoiPjwvcGF0aD48cGF0aCBmaWxsPSIjZmZmIiBkPSJNODAuNSw2NWgtMmMtMC4yNzYsMC0wLjUtMC4yMjQtMC41LTAuNXMwLjIyNC0wLjUsMC41LTAuNWgyYzAuMjc2LDAsMC41LDAuMjI0LDAuNSwwLjUgUzgwLjc3Nyw2NSw4MC41LDY1eiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik04Ni41LDY3aC0yYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDJjMC4yNzYsMCwwLjUsMC4yMjQsMC41LDAuNSBTODYuNzc2LDY3LDg2LjUsNjd6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTg5LjUsNThjLTAuMTc3LDAtMC44MjMsMC0xLDBjLTAuMjc2LDAtMC41LDAuMjI0LTAuNSwwLjVjMCwwLjI3NiwwLjIyNCwwLjUsMC41LDAuNSBjMC4xNzcsMCwwLjgyMywwLDEsMGMwLjI3NiwwLDAuNS0wLjIyNCwwLjUtMC41QzkwLDU4LjIyNCw4OS43NzYsNTgsODkuNSw1OHoiPjwvcGF0aD48cGF0aCBmaWxsPSIjZmZmIiBkPSJNODkuNSw2MGMtMC4xNzcsMC00LjgyMywwLTUsMGMtMC4yNzYsMC0wLjUsMC4yMjQtMC41LDAuNWMwLDAuMjc2LDAuMjI0LDAuNSwwLjUsMC41IGMwLjE3NywwLDQuODIzLDAsNSwwYzAuMjc2LDAsMC41LTAuMjI0LDAuNS0wLjVDOTAsNjAuMjI0LDg5Ljc3Niw2MCw4OS41LDYweiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik05NC41LDYyYy0wLjE3NywwLTIuODIzLDAtMywwYy0wLjI3NiwwLTAuNSwwLjIyNC0wLjUsMC41YzAsMC4yNzYsMC4yMjQsMC41LDAuNSwwLjUgYzAuMTc3LDAsMi44MjMsMCwzLDBjMC4yNzYsMCwwLjUtMC4yMjQsMC41LTAuNUM5NSw2Mi4yMjQsOTQuNzc2LDYyLDk0LjUsNjJ6Ij48L3BhdGg+PGc+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTMyLjUsODBoLTEwYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDEwYzAuMjc2LDAsMC41LDAuMjI0LDAuNSwwLjUgUzMyLjc3Niw4MCwzMi41LDgweiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0zNi41LDgwaC0yYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDJjMC4yNzYsMCwwLjUsMC4yMjQsMC41LDAuNSBTMzYuNzc2LDgwLDM2LjUsODB6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQxLjUsODJoLTEwYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDEwYzAuMjc2LDAsMC41LDAuMjI0LDAuNSwwLjUgUzQxLjc3Nyw4Miw0MS41LDgyeiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0yOS41LDgyaC0xYy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41czAuMjI0LTAuNSwwLjUtMC41aDFjMC4yNzYsMCwwLjUsMC4yMjQsMC41LDAuNSBTMjkuNzc2LDgyLDI5LjUsODJ6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTI2LjQ3LDgySDI0LjVjLTAuMjc2LDAtMC41LTAuMjI0LTAuNS0wLjVzMC4yMjQtMC41LDAuNS0wLjVoMS45N2MwLjI3NiwwLDAuNSwwLjIyNCwwLjUsMC41IFMyNi43NDYsODIsMjYuNDcsODJ6Ij48L3BhdGg+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTM1LjUsNzhoLTVjLTAuMjc2LDAtMC41LTAuMjI0LTAuNS0wLjVzMC4yMjQtMC41LDAuNS0wLjVoNWMwLjI3NiwwLDAuNSwwLjIyNCwwLjUsMC41IFMzNS43NzcsNzgsMzUuNSw3OHoiPjwvcGF0aD48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMzIuNSw4NGgtMmMtMC4yNzYsMC0wLjUtMC4yMjQtMC41LTAuNXMwLjIyNC0wLjUsMC41LTAuNWgyYzAuMjc2LDAsMC41LDAuMjI0LDAuNSwwLjUgUzMyLjc3Niw4NCwzMi41LDg0eiI+PC9wYXRoPjwvZz48Zz48cGF0aCBmaWxsPSIjZmRmY2VmIiBkPSJNMjMuNSw3MS41YzAsMC0xLjU2NywwLTMuNSwwcy0zLjUtMS41NjctMy41LTMuNWMwLTEuNzgxLDEuMzM1LTMuMjM0LDMuMDU1LTMuNDU1IEMxOS41MjcsNjQuMzY2LDE5LjUsNjQuMTg3LDE5LjUsNjRjMC0xLjkzMywxLjU2Ny0zLjUsMy41LTMuNWMxLjAzMiwwLDEuOTUsMC40NTUsMi41OSwxLjE2NWMwLjM4NC0xLjgwOCwxLjk4Ny0zLjE2NSwzLjkxLTMuMTY1IGMyLjIwOSwwLDQsMS43OTEsNCw0YzAsMC4xOTEtMC4wMywwLjM3NC0wLjA1NiwwLjU1OEMzMy44NzIsNjIuNzE0LDM0LjQwOCw2Mi41LDM1LDYyLjVjMS4yMjgsMCwyLjI0NSwwLjg4NywyLjQ1NSwyLjA1NSBDMzcuNjM0LDY0LjUyNywzNy44MTMsNjQuNSwzOCw2NC41YzEuOTMzLDAsMy41LDEuNTY3LDMuNSwzLjVzLTEuNTY3LDMuNS0zLjUsMy41cy03LjUsMC03LjUsMFY3MmgtN1Y3MS41eiI+PC9wYXRoPjxwYXRoIGZpbGw9IiM0NzJiMjkiIGQ9Ik0yMS43NSw2N2MwLjEzOCwwLDAuMjUtMC4xMTIsMC4yNS0wLjI1YzAtMS4yMjMtMC45OTUtMi4yMTgtMi4yMTgtMi4yMTggYy0wLjAzNCwwLjAwOS0wLjczNy0wLjAwMS0xLjI0NCwwLjEzNmMtMC4xMzMsMC4wMzYtMC4yMTIsMC4xNzMtMC4xNzYsMC4zMDZjMC4wMzYsMC4xMzQsMC4xNzMsMC4yMTMsMC4zMDYsMC4xNzYgYzAuNDQ0LTAuMTIsMS4xLTAuMTIsMS4xMTMtMC4xMThjMC45NDgsMCwxLjcxOSwwLjc3MSwxLjcxOSwxLjcxOEMyMS41LDY2Ljg4OCwyMS42MTIsNjcsMjEuNzUsNjd6Ij48L3BhdGg+PGNpcmNsZSBjeD0iMjguNSIgY3k9IjcxLjUiIHI9Ii41IiBmaWxsPSIjNDcyYjI5Ij48L2NpcmNsZT48cGF0aCBmaWxsPSIjNDcyYjI5IiBkPSJNMjAsNzJoMy41YzAuMjc2LDAsMC41LTAuMjI0LDAuNS0wLjVTMjMuNzc2LDcxLDIzLjUsNzFIMjBjLTEuNjU0LDAtMy0xLjM0Ni0zLTMgYzAtMS40OTYsMS4xMjUtMi43NjgsMi42MTgtMi45NTljMC4xMzQtMC4wMTgsMC4yNTUtMC4wODgsMC4zMzYtMC4xOTZzMC4xMTUtMC4yNDQsMC4wOTQtMC4zNzdDMjAuMDI1LDY0LjMxNCwyMCw2NC4xNiwyMCw2NCBjMC0xLjY1NCwxLjM0Ni0zLDMtM2MwLjg1LDAsMS42MzgsMC4zNTUsMi4yMTksMWMwLjEyNSwwLjEzOSwwLjMyMSwwLjE5OCwwLjUsMC4xNDhjMC4xODItMC4wNDksMC4zMjEtMC4xOTUsMC4zNi0wLjM3OSBDMjYuNDIsNjAuMTY1LDI3Ljg1OSw1OSwyOS41LDU5YzEuOTMsMCwzLjUsMS41NywzLjUsMy41YzAsMC4xNDMtMC4wMjEsMC4yOC0wLjA0MSwwLjQxOGMtMC4wMjksMC4yMDMsMC4wNjMsMC40MzgsMC4yNDIsMC41NCBjMC4xNzksMC4xMDIsMC4zOTYsMC4xMTgsMC41NTYtMC4wMUMzNC4xMjIsNjMuMTU1LDM0LjU1MSw2MywzNSw2M2MwLjk2NiwwLDEuNzkyLDAuNjkxLDEuOTYzLDEuNjQ0IGMwLjA0OCwwLjI2NywwLjI5NiwwLjQ0NiwwLjU2OSwwLjQwNUMzNy42ODYsNjUuMDI1LDM3Ljg0LDY1LDM4LDY1YzEuNjU0LDAsMywxLjM0NiwzLDNzLTEuMzQ2LDMtMywzaC03LjUgYy0wLjI3NiwwLTAuNSwwLjIyNC0wLjUsMC41czAuMjI0LDAuNSwwLjUsMC41SDM4YzIuMjA2LDAsNC0xLjc5NCw0LTRzLTEuNzk0LTQtNC00Yy0wLjA1OSwwLTAuMTE2LDAuMDAyLTAuMTc0LDAuMDA2IEMzNy40MTIsNjIuODIsMzYuMjg5LDYyLDM1LDYyYy0wLjM0OSwwLTAuNjg5LDAuMDYxLTEuMDExLDAuMThDMzMuODI0LDU5Ljg0NywzMS44NzQsNTgsMjkuNSw1OCBjLTEuODMxLDAtMy40NjYsMS4xMjctNC4xNTMsMi43NzRDMjQuNjY3LDYwLjI3NiwyMy44NDUsNjAsMjMsNjBjLTIuMjA2LDAtNCwxLjc5NC00LDRjMCwwLjA0OCwwLjAwMSwwLjA5NSwwLjAwNCwwLjE0MiBDMTcuMjYxLDY0LjU5LDE2LDY2LjE2OSwxNiw2OEMxNiw3MC4yMDYsMTcuNzk0LDcyLDIwLDcyeiI+PC9wYXRoPjxwYXRoIGZpbGw9IiM0NzJiMjkiIGQ9Ik0yNS41LDcxYzAuMTU5LDAsMC44NDEsMCwxLDBjMC4yNzYsMCwwLjUsMC4yMjQsMC41LDAuNWMwLDAuMjc2LTAuMjI0LDAuNS0wLjUsMC41IGMtMC4xNTksMC0wLjg0MSwwLTEsMGMtMC4yNzYsMC0wLjUtMC4yMjQtMC41LTAuNUMyNSw3MS4yMjQsMjUuMjI0LDcxLDI1LjUsNzF6Ij48L3BhdGg+PC9nPjxnPjxwb2x5Z29uIGZpbGw9IiNmMWJjMTkiIHBvaW50cz0iODIsNTIgNjEsMzEgNDYsMzEgNDAsMzEgMjAsNTIgMjYsNTIgNDMuMDczLDM0LjA3MyA2MSw1MiI+PC9wb2x5Z29uPjxwYXRoIGZpbGw9IiM0NzJiMjkiIGQ9Ik04Miw1Mi41SDYxYy0wLjEzMywwLTAuMjYtMC4wNTMtMC4zNTQtMC4xNDZMNDMuMDgyLDM0Ljc4OWwtMTYuNzIsMTcuNTU2IEMyNi4yNjgsNTIuNDQ0LDI2LjEzNyw1Mi41LDI2LDUyLjVoLTZjLTAuMiwwLTAuMzgxLTAuMTE5LTAuNDYtMC4zMDNjLTAuMDc4LTAuMTg0LTAuMDQtMC4zOTcsMC4wOTgtMC41NDJsMjAtMjEgQzM5LjczMiwzMC41NTYsMzkuODYzLDMwLjUsNDAsMzAuNWgyMWMwLjEzMywwLDAuMjYsMC4wNTMsMC4zNTQsMC4xNDZsMjEsMjFjMC4xNDMsMC4xNDMsMC4xODYsMC4zNTgsMC4xMDgsMC41NDUgQzgyLjM4NSw1Mi4zNzgsODIuMjAyLDUyLjUsODIsNTIuNXogTTYxLjIwNyw1MS41aDE5LjU4NmwtMjAtMjBINDAuMjE0bC0xOS4wNDcsMjBoNC42MTlsMTYuOTI1LTE3Ljc3MiBjMC4wOTMtMC4wOTgsMC4yMjItMC4xNTMsMC4zNTYtMC4xNTVjMC4xMjMsMCwwLjI2NSwwLjA1MSwwLjM1OSwwLjE0Nkw2MS4yMDcsNTEuNXoiPjwvcGF0aD48cGF0aCBmaWxsPSIjY2JjOWJjIiBkPSJNNTAuNDk1LDY3LjUwNUM1MC4zNjMsNjcuMzc0LDUwLjE4Niw2Ny4zLDUwLDY3LjNIMzMuMTg3Yy0xLjM3MiwwLTIuNDg3LTEuMTE2LTIuNDg3LTIuNDg4IFY1Mi4xNTJsMTIuMzAxLTEzLjEyOUw1OC40OSw1NS40OGMwLjEzMywwLjE0MSwwLjMxNiwwLjIyLDAuNTEsMC4yMmMwLjAwMiwwLDExLjMtMC4xMTgsMTEuMy0wLjExOHY5LjIzIGMwLDEuMzcyLTEuMTE1LDIuNDg4LTIuNDg3LDIuNDg4SDYyYy0wLjM4NywwLTAuNywwLjMxMy0wLjcsMC43djEwLjMxTDUwLjQ5NSw2Ny41MDV6Ij48L3BhdGg+PHBhdGggZmlsbD0iIzQ3MmIyOSIgZD0iTTQzLjAwMiw0MC4wNDVsMTQuOTc4LDE1LjkxNWMwLjI2NSwwLjI4MSwwLjYzNCwwLjQ0LDEuMDE5LDAuNDRjMC4wMDUsMCwwLjAxLDAsMC4wMTUsMCBMNjkuNiw1Ni4yOXY4LjUyM2MwLDAuOTg2LTAuODAyLDEuNzg4LTEuNzg4LDEuNzg4SDYyYy0wLjc3MywwLTEuNCwwLjYyNi0xLjQsMS40djguNjJsLTkuNjEtOS42MSBjLTAuMjYzLTAuMjYzLTAuNjE5LTAuNDEtMC45OS0wLjQxSDMzLjE4N2MtMC45ODYsMC0xLjc4Ny0wLjgwMi0xLjc4Ny0xLjc4OFY1Mi40MjhMNDMuMDAyLDQwLjA0NSBNNDMsMzhMMzAsNTEuODc1djEyLjkzOCBDMzAsNjYuNTczLDMxLjQyNyw2OCwzMy4xODcsNjhINTBsMTIsMTJWNjhoNS44MTJDNjkuNTczLDY4LDcxLDY2LjU3Myw3MSw2NC44MTN2LTkuOTM4TDU5LDU1TDQzLDM4TDQzLDM4eiI+PC9wYXRoPjxwYXRoIGZpbGw9IiM0NzJiMjkiIGQ9Ik0zNCw1OC40NThjLTAuMTM4LDAtMC4yNS0wLjExMi0wLjI1LTAuMjV2LTUuMjkyYzAtMC4xMzgsMC4xMTItMC4yNSwwLjI1LTAuMjUgczAuMjUsMC4xMTIsMC4yNSwwLjI1djUuMjkyQzM0LjI1LDU4LjM0NiwzNC4xMzgsNTguNDU4LDM0LDU4LjQ1OHoiPjwvcGF0aD48cGF0aCBmaWxsPSIjNDcyYjI5IiBkPSJNMzQuOTE3LDY0LjI1Yy0wLjY0NCwwLTEuMTY3LTAuNTIzLTEuMTY3LTEuMTY3di0yLjg3NWMwLTAuMTM4LDAuMTEyLTAuMjUsMC4yNS0wLjI1IHMwLjI1LDAuMTEyLDAuMjUsMC4yNXYyLjg3NWMwLDAuMzY4LDAuMjk5LDAuNjY3LDAuNjY3LDAuNjY3YzAuMTM4LDAsMC4yNSwwLjExMiwwLjI1LDAuMjVTMzUuMDU1LDY0LjI1LDM0LjkxNyw2NC4yNXoiPjwvcGF0aD48cGF0aCBmaWxsPSIjNDcyYjI5IiBkPSJNNDQuMjA4LDY0LjI1aC03Yy0wLjEzOCwwLTAuMjUtMC4xMTItMC4yNS0wLjI1czAuMTEyLTAuMjUsMC4yNS0wLjI1aDcgYzAuMTM4LDAsMC4yNSwwLjExMiwwLjI1LDAuMjVTNDQuMzQ2LDY0LjI1LDQ0LjIwOCw2NC4yNXoiPjwvcGF0aD48cGF0aCBmaWxsPSIjNDcyYjI5IiBkPSJNNDkuMDgzLDY0LjI1aC0yLjk1OGMtMC4xMzgsMC0wLjI1LTAuMTEyLTAuMjUtMC4yNXMwLjExMi0wLjI1LDAuMjUtMC4yNWgyLjk1OCBjMC4xMzgsMCwwLjI1LDAuMTEyLDAuMjUsMC4yNVM0OS4yMjEsNjQuMjUsNDkuMDgzLDY0LjI1eiI+PC9wYXRoPjxnPjxwYXRoIGZpbGw9IiM0NzJiMjkiIGQ9Ik03Mi41LDQ2Ljc1Yy0wLjA2NCwwLTAuMTI4LTAuMDI0LTAuMTc3LTAuMDczbC00Ljc5Mi00Ljc5MmMtMC4wOTgtMC4wOTgtMC4wOTgtMC4yNTYsMC0wLjM1NCBzMC4yNTYtMC4wOTgsMC4zNTQsMGw0Ljc5Miw0Ljc5MmMwLjA5OCwwLjA5OCwwLjA5OCwwLjI1NiwwLDAuMzU0QzcyLjYyOCw0Ni43MjYsNzIuNTY0LDQ2Ljc1LDcyLjUsNDYuNzV6Ij48L3BhdGg+PC9nPjxnPjxwYXRoIGZpbGw9IiM0NzJiMjkiIGQ9Ik02Ni4xODgsNDAuNDM4Yy0wLjA2NCwwLTAuMTI4LTAuMDI0LTAuMTc3LTAuMDczbC02LjYxNC02LjYxNEg1MC41Yy0wLjEzOCwwLTAuMjUtMC4xMTItMC4yNS0wLjI1IHMwLjExMi0wLjI1LDAuMjUtMC4yNWg5YzAuMDY2LDAsMC4xMywwLjAyNiwwLjE3NywwLjA3M2w2LjY4OCw2LjY4OGMwLjA5OCwwLjA5OCwwLjA5OCwwLjI1NiwwLDAuMzU0IEM2Ni4zMTUsNDAuNDEzLDY2LjI1Miw0MC40MzgsNjYuMTg4LDQwLjQzOHoiPjwvcGF0aD48L2c+PC9nPgo8L3N2Zz4=" />
+                    </a>
+                    <a style="font-family:'Courier New'">PassWordManager</a>
+                </div>
+
+                <!-- Navbar Links -->
+                <ul id="menu">
+                    <li><a href="@Url.Action("createaccount","securepass")">Add account</a></li>
+                    <!--
+                    -->
+                    <!--
+                    -->
+                    <li><a href="@Url.Action("Logiin","securepass")">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+    <div class="container" id="container">
+        <div>
+
+            @if (Model.GoogleModelss != null && Model.GoogleModelss.Any())
+            {
+                
+<table>
+    <thead>
+        <tr>
+            <th scope="col">AccountType</th>
+            <th scope="col">GooglePassword</th>
+            <th scope="col">GooglePassword</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+
+           
+        </tr>
+    </thead>
+    <tbody>
+                    @foreach (var googleView in Model.GoogleModelss)
+                    {
+                        
+                    
+           <tr>
+            <td>@googleView.Accounttypego</td>
+
+            <td >@googleView.GoogleuserName</td>
+            <td>@googleView.GooglePassword</td>
+            <td>
+                                <a asp-action="googleedit" asp-route-Accounttypego="@googleView.Accounttypego" asp-route-Id="@googleView.GoogleId">Edit</a> |
+            </td>
+                            <td>
+                            
+                                <form method="post" action="@Url.Action("delete", "securepass")" class="delete-form">
+                                    <input type="hidden" name="Accounttypego" value="@googleView.Accounttypego" />
+                                    <input type="hidden" name="GoogleuserName" value="@googleView.GoogleuserName" />
+                                    <input type="hidden" name="GooglePassword" value="@googleView.GooglePassword" />
+
+                                    <input type="hidden" name="GoogleId" value="@googleView.GoogleId" />
+                                    <button id="GoogleButtonClick" class="btn btn-danger">Delete</button>
+                                    @Html.AntiForgeryToken()
+                                </form>
+                            </td>
+                 
+        </tr>
+                    } 
+    </tbody>
+                </table>
+            }
+
+           
+        </div>
+
+
+<div>
+      @if (Model.FacebookModelss != null && Model.FacebookModelss.Any())
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">AccountType</th>
+                            <th scope="col">FBUsername</th>
+                            <th scope="col">FBPassword</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var fbView in Model.FacebookModelss)
+                        {
+
+
+                            <tr>
+                                <td>@fbView.AccounttypeFb</td>
+
+                                <td>@fbView.FBuserName</td>
+                                <td>@fbView.FBPassword</td>
+                                <td>
+                                    <a asp-action="facebookEdit" asp-route-Accounttypego="@fbView.AccounttypeFb" asp-route-Id="@fbView.FacebookId">Edit</a> |
+                                </td>
+                                <td>
+
+                                    <form method="post" action="@Url.Action("delete", "securepass")" class="delete-form">
+                                        <input type="hidden" name="AccounttypeFb" value="@fbView.AccounttypeFb" />
+                                        <input type="hidden" name="FBuserName" value="@fbView.FBuserName" />
+                                        <input type="hidden" name="FacebookId" value="@fbView.FacebookId" />
+                                        <input type="hidden" name="FBPassword" value="@fbView.FBPassword" />
+
+                                        <input type="hidden" name="FacebookId" value="@fbView.FacebookId" />
+                                        <button id="GoogleButtonClick" class="btn btn-danger">Delete</button>
+                                        @Html.AntiForgeryToken()
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+
+        </tbody>
+    </table>
+    }
+        </div>
+
+
+   <div>
+            @if (Model.InstagramModelss != null && Model.InstagramModelss.Any())
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">AccountType</th>
+                            <th scope="col">InstaUsername</th>
+                            <th scope="col">InstaPassword</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var instaView in Model.InstagramModelss)
+                        {
+
+
+                            <tr>
+                                <td>@instaView.AccounttypeIN</td>
+
+                                <td>@instaView.INuserName</td>
+                                <td>@instaView.INPassword</td>
+                                <td>
+                                    <a asp-action="instaedit" asp-route-Accounttypego="@instaView.AccounttypeIN" asp-route-Id="@instaView.InstaId">Edit</a> |
+                                </td>
+                                <td>
+
+                                    <form method="post" action="@Url.Action("delete", "securepass")" class="delete-form">
+                                        <input type="hidden" name="AccounttypeIN" value="@instaView.AccounttypeIN" />
+                                        <input type="hidden" name="InstaId" value="@instaView.InstaId" />
+                                        <input type="hidden" name="INuserName" value="@instaView.INuserName" />
+                                        <input type="hidden" name="INPassword" value="@instaView.INPassword" />
+
+                                        <input type="hidden" name="InstaId" value="@instaView.InstaId" />
+                                        <button id="GoogleButtonClick" class="btn btn-danger">Delete</button>
+                                        @Html.AntiForgeryToken()
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+
+        </tbody>
+    </table>
+    }
+        </div>
+
+    <div>
+            @if (Model.BankingModelss != null && Model.BankingModelss.Any())
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">AccountType</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Phonenumber</th>
+                            <th scope="col">Upin</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+
+
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var bankingView in Model.BankingModelss)
+                        {
+
+
+                            <tr>
+                                <td>@bankingView.accounttype</td>
+
+                                <td>@bankingView.Bankname</td>
+                                <td>@bankingView.BankPhonenumber</td>
+                                <td>@bankingView.UPIPin</td>
+
+                                <td>
+                                    <a asp-action="bankingedit" asp-route-Accounttypego="@bankingView.accounttype" asp-route-Id="@bankingView.bankId">Edit</a> |
+                                </td>
+                                <td>
+
+                                    <form method="post" action="@Url.Action("delete", "securepass")" class="delete-form">
+                                        <input type="hidden" name="accounttype" value="@bankingView.accounttype" />
+                                        <input type="hidden" name="bankId" value="@bankingView.bankId" />
+                                        <input type="hidden" name="BankPhonenumber" value="@bankingView.BankPhonenumber" />
+                                        <input type="hidden" name="Bankname" value="@bankingView.Bankname" />
+                                        <input type="hidden" name="UPIPin" value="@bankingView.UPIPin" />
+
+
+                                        <input type="hidden" name="bankId" value="@bankingView.bankId" />
+                                        <button id="GoogleButtonClick" class="btn btn-danger">Delete</button>
+                                        @Html.AntiForgeryToken()
+                                    </form>
+                                </td>
+                            </tr>
+                        } 
+
+        </tbody>
+    </table>
+    }
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#GoogleButtonClicks").click(function (e) {
+                // var accountType = $this.data('Accounttypego');
+                // var googleId = $this.data('GoogleId');
+                $.ajax({
+                    url: "/securepass/delete",
+                    type: "POST",
+                    dataType: 'json',
+                    //  contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    // data: {
+                    //     Accounttypego: accountType,
+                    //     GoogleId: googleId
+                    // },
+                    success: function (response) {
+                        if (response.success) {
+                            // Reset form after successful submission
+                            $("#friendforminsta")[0].reset();
+                        }
+
+                        // Reset form after successful submission
+                    }
+
+
+
+                });
+            });
+        });
+    </script>
+</body>
+</html>
